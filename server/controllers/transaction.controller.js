@@ -4,18 +4,17 @@ import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
 
 /**
- * Get all posts
+ * Get all transactions
  * @param req
  * @param res
  * @returns void
  */
 export function getTransactions(req, res) {
-  console.log('getting transactions')
-  Transaction.find().sort('-dateAdded').exec((err, transaction) => {
+  Transaction.find().sort('-dateAdded').exec((err, transactions) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ transaction });
+    res.json({ transactions });
   });
 }
 
