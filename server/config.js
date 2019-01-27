@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 const config = {
-  mongoURL: 'mongodb://jhong098:198215hh@ds213705.mlab.com:13705/minty-test',
+  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/minty',
   port: process.env.PORT || 8000,
 };
 

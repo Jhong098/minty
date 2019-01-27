@@ -45,9 +45,11 @@ import Helmet from 'react-helmet';
 // Import required modules
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
+import writeToDB from './writeTransactionsToDB';
 import transaction from './routes/transaction.routes';
-import dummyData from './dummyData';
+// import dummyData from './dummyData';
 import serverConfig from './config';
+
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -61,8 +63,10 @@ if (process.env.NODE_ENV !== 'test') {
     }
 
     // feed some dummy data in DB.
-    console.log(serverConfig.mongoURL)
-    dummyData();
+    //dummyData();
+
+    // feed latest transactions to DB
+    writeToDB();
   });
 }
 

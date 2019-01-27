@@ -1,6 +1,6 @@
 // const moment = require('moment')
 
-exports.transformTransactionsToUpdates = (transactions) => {
+exports.transformTransactionsToSheets = (transactions) => {
   /**
    * Implement your custom logic of transforming transactions into
    * Google Sheet cell updates.

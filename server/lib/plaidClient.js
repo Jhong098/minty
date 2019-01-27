@@ -1,4 +1,5 @@
-const plaid = require('plaid')
+const plaid = require('plaid');
+require('dotenv').config();
 
 module.exports = new plaid.Client(
   process.env.PLAID_CLIENT_ID,
@@ -6,6 +7,6 @@ module.exports = new plaid.Client(
   process.env.PLAID_PUBLIC_KEY,
   plaid.environments.development,
   {
-    version: '2018-05-22'
+    version: '2018-05-22',
   }
-)
+);
