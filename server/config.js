@@ -1,5 +1,5 @@
 const config = {
-  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/mern-starter',
+  mongoURL: 'mongodb://jhong098:198215hh@ds213705.mlab.com:13705/minty-test',
   port: process.env.PORT || 8000,
 };
 
