@@ -42,7 +42,8 @@ exports.fetchTransactions = async function() {
       account,
       name,
       date,
-      amount: -amount
+      amount: -amount,
+      dateISO: moment(date).toISOString(),
     })));
   }, []);
 };

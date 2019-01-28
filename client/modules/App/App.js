@@ -7,6 +7,7 @@ import './App.css';
 
 // Import Components
 import Helmet from 'react-helmet';
+import AppBar from './components/AppBar';
 
 // Import Actions
 // import { toggleAddPost } from './AppActions';
@@ -47,6 +48,7 @@ export class App extends Component {
               },
             ]}
           />
+          <AppBar />
           <div>
             {this.props.children}
           </div>
