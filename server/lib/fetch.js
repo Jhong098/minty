@@ -38,12 +38,14 @@ exports.fetchTransactions = async function() {
 
   // concat all transactions
   return rawTransactions.reduce((all, { account, transactions }) => {
-    return all.concat(transactions.map(({ name, date, amount }) => ({
+    return all.concat(transactions.map(({ name, date, amount, category, location }) => ({
       account,
       name,
       date,
-      amount: -amount,
       dateISO: moment(date).toISOString(),
+      amount,
+      category,
+      location,
     })));
   }, []);
 };

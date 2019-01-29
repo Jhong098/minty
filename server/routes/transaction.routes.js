@@ -14,4 +14,6 @@ router.route('/transactions').post(TransactionController.addTransaction);
 // Delete a transaction by cuid
 router.route('/transactions/:cuid').delete(TransactionController.deleteTransaction);
 
+router.route('/transactionAmountsByDay').get(TransactionController.getDailyAggregatedTransactions);
+
 export default router;

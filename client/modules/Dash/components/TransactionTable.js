@@ -20,16 +20,16 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(account, name, date, amount) {
+function createData(account, name, date, amount, category, location) {
   id += 1;
-  return { id, account, name, date, amount };
+  return { id, account, name, date, amount, category, location };
 }
 
 const rows = [];
 
 function TransactionTable(props) {
-  props.transactions.map(({ account, name, date, amount }) => {
-    return rows.push(createData(account, name, date, amount));
+  props.transactions.map(({ account, name, date, amount, category }) => {
+    return rows.push(createData(account, name, date, amount, category));
   });
 
   const { classes } = props;
@@ -43,7 +43,9 @@ function TransactionTable(props) {
               <TableCell>account</TableCell>
               <TableCell align="right">name</TableCell>
               <TableCell align="right">date</TableCell>
-              <TableCell align="right">amount ($)</TableCell>
+              <TableCell align="right">amount</TableCell>
+              <TableCell align="right">category</TableCell>
+              {/* <TableCell align="right">location</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -55,6 +57,8 @@ function TransactionTable(props) {
                 <TableCell align="right">{row.name}</TableCell>
                 <TableCell align="right">{row.date}</TableCell>
                 <TableCell align="right">{row.amount}</TableCell>
+                <TableCell align="right">{row.category[1] || row.category[0]}</TableCell>
+                {/* <TableCell align="right">{row.location}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>
@@ -71,6 +75,8 @@ TransactionTable.propTypes = {
     name: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
+    category: PropTypes.array.isRequired,
+    // location: PropTypes.object,
     // cuid: PropTypes.string.isRequired,
   })).isRequired,
 };

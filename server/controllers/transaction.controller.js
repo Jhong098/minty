@@ -3,6 +3,37 @@ import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
 
+export function getDailyAggregatedTransactions(req, res) {
+  Transaction.aggregate([{
+    $group: {
+      _id: {
+        day: {
+          $dayOfMonth: {
+            $dateFromString: {
+              dateString: "$dateISO"
+            }
+          }
+        },
+        year: {
+          $year: {
+            $dateFromString: {
+              dateString: "$dateISO"
+            }
+          }
+        }
+      },
+      dailyTotal: {
+        $sum: "$amount"
+      }, count: {
+        $sum: 1
+      }
+    }
+  }], (err, result) => {
+    if (err) res.status(500).send(err);
+    res.json({ result });
+  });
+}
+
 /**
  * Get all transactions
  * @param req
