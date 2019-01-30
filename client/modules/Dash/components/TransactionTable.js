@@ -20,52 +20,64 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(account, name, date, amount, category, location) {
-  id += 1;
-  return { id, account, name, date, amount, category, location };
-}
 
-const rows = [];
+class TransactionTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rows: this.createRows(),
+      page: 0,
+      rowsPerPage: 10,
+    };
+  }
 
-function TransactionTable(props) {
-  props.transactions.map(({ account, name, date, amount, category }) => {
-    return rows.push(createData(account, name, date, amount, category));
-  });
+  createData = (account, name, date, amount, category, location) => {
+    id += 1;
+    return { id, account, name, date, amount, category, location };
+  }
 
-  const { classes } = props;
+  createRows = () => {
+    return this.props.transactions.map(({ account, name, date, amount, category }) => {
+      return this.createData(account, name, date, amount, category);
+    });
+  };
 
-  return (
-    <div>
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>account</TableCell>
-              <TableCell align="right">name</TableCell>
-              <TableCell align="right">date</TableCell>
-              <TableCell align="right">amount</TableCell>
-              <TableCell align="right">category</TableCell>
-              {/* <TableCell align="right">location</TableCell> */}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.account}
-                </TableCell>
-                <TableCell align="right">{row.name}</TableCell>
-                <TableCell align="right">{row.date}</TableCell>
-                <TableCell align="right">{row.amount}</TableCell>
-                <TableCell align="right">{row.category[1] || row.category[0]}</TableCell>
-                {/* <TableCell align="right">{row.location}</TableCell> */}
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>account</TableCell>
+                <TableCell align="right">name</TableCell>
+                <TableCell align="right">date</TableCell>
+                <TableCell align="right">amount</TableCell>
+                <TableCell align="right">category</TableCell>
+                {/* <TableCell align="right">location</TableCell> */}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
-    </div>
-  );
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.account}
+                  </TableCell>
+                  <TableCell align="right">{row.name}</TableCell>
+                  <TableCell align="right">{row.date}</TableCell>
+                  <TableCell align="right">{row.amount}</TableCell>
+                  <TableCell align="right">{row.category[1] || row.category[0]}</TableCell>
+                  {/* <TableCell align="right">{row.location}</TableCell> */}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
+    );
+  }
 }
 
 TransactionTable.propTypes = {
