@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { LineChart, Line } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 const styles = {
   card: {
@@ -26,7 +26,8 @@ const styles = {
 };
 
 function LineGraph(props) {
-  const { classes } = props;
+  console.log(props)
+  const { classes, amounts } = props;
 
   return (
     <Card className={classes.card}>
@@ -34,6 +35,13 @@ function LineGraph(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Daily Spendings
         </Typography>
+        <LineChart width={600} height={300} data={amounts} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <XAxis />
+          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Line type="monotone" dataKey="dailyTotal" stroke="#8884d8" activeDot={{ r: 8 }} />
+        </LineChart>
         {/* <Typography className={classes.pos} color="textSecondary">
           adjective
         </Typography>
@@ -49,6 +57,11 @@ function LineGraph(props) {
 
 LineGraph.propTypes = {
   classes: PropTypes.object.isRequired,
+  amounts: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.object.isRequired,
+    dailyTotal: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+  })),
 };
 
 export default withStyles(styles)(LineGraph);

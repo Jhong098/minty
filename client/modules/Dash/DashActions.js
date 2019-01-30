@@ -42,7 +42,7 @@ export function fetchTransaction(cuid) {
 export function fetchAmountsByDay() {
   return (dispatch) => {
     return callApi('transactionAmountsByDay').then(res => {
-      dispatch(getAmountsByDay(res.amounts));
+      dispatch(getAmountsByDay(res.result));
     });
   };
 }

@@ -15,8 +15,9 @@ const TransactionReducer = (state = initialState, action) => {
       };
 
     case GET_AMOUNT_BY_DAY :
+    console.log(action)
       return {
-        data: action.amounts,
+        ...state, amounts: action.amounts,
       };
 
     default:
@@ -31,7 +32,7 @@ export const getTransactions = state => state.dash.data;
 export const getTransaction = (state, cuid) => state.data.filter(transaction => transaction.cuid === cuid)[0];
 
 // Get amounts by day
-export const getAmountsByDay = state => state.dash.data;
+export const getAmountsByDay = state => state.dash.amounts;
 
 // Export Reducer
 export default TransactionReducer;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // Import Components
 import TransactionTable from '../components/TransactionTable';
-// import LineGraph from '../components/LineGraph';
+import LineGraph from '../components/LineGraph';
 
 // Import Actions
 import { fetchTransactions, fetchAmountsByDay } from '../DashActions';
@@ -14,24 +14,50 @@ import { getTransactions, getAmountsByDay } from '../DashReducer';
 
 class DashMainPage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loaded: false,
+      transactions: [],
+      amounts: [],
+    };
+  }
+
   componentDidMount = () => {
     this.props.dispatch(fetchTransactions());
     this.props.dispatch(fetchAmountsByDay());
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.amounts && nextProps.transactions) {
+      this.setState({
+        loaded: true,
+        transactions: [...nextProps.transactions],
+        amounts: [...nextProps.amounts],
+      });
+    }
+  }
+
   render() {
-    console.log(this.props.amounts)
+    const { loaded, transactions, amounts } = this.state;
     return (
       <div>
-        <TransactionTable transactions={this.props.transactions} />
-        {/* <LineGraph amounts={this.props.amounts} /> */}
+        {
+          loaded && (
+            <div>
+              <TransactionTable transactions={transactions} />
+              <LineGraph amounts={amounts} />
+            </div>
+          )
+        }
       </div>
     );
   }
 }
 
 DashMainPage.need = [() => { return fetchTransactions(); }];
-// DashMainPage.need = [() => { return fetchAmountsByDay(); }];
+DashMainPage.need = [() => { return fetchAmountsByDay(); }];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
@@ -49,10 +75,10 @@ DashMainPage.propTypes = {
     amount: PropTypes.number.isRequired,
   })).isRequired,
   amounts: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    _id: PropTypes.object.isRequired,
     dailyTotal: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
-  })).isRequired,
+  })),
   dispatch: PropTypes.func.isRequired,
 };
 
