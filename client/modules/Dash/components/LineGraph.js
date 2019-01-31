@@ -8,9 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-const styles = {
+const styles = theme => ({
   card: {
+    width: '60%',
     minWidth: 275,
+    height: '60%',
+    margin: theme.spacing.unit * 2,
   },
   bullet: {
     display: 'inline-block',
@@ -18,15 +21,15 @@ const styles = {
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
+    margin: theme.spacing.unit,
   },
   pos: {
     marginBottom: 12,
   },
-};
+});
 
 function LineGraph(props) {
-  console.log(props)
   const { classes, amounts } = props;
 
   return (
@@ -35,7 +38,7 @@ function LineGraph(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Daily Spendings
         </Typography>
-        <LineChart width={600} height={300} data={amounts} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <LineChart width={500} height={300} data={amounts} margin={{ top: 5, right: 30, left: 5, bottom: 5 }}>
           <XAxis />
           <YAxis />
           <CartesianGrid strokeDasharray="3 3" />

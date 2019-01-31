@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 // Import Components
 import TransactionTable from '../components/TransactionTable';
 import LineGraph from '../components/LineGraph';
@@ -11,6 +10,13 @@ import { fetchTransactions, fetchAmountsByDay } from '../DashActions';
 
 // Import Selectors
 import { getTransactions, getAmountsByDay } from '../DashReducer';
+
+const containerStyle = {
+  display: 'flex',
+  width: '100%',
+  height: '100vh',
+  padding: '80px',
+};
 
 class DashMainPage extends Component {
 
@@ -29,7 +35,6 @@ class DashMainPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.amounts && nextProps.transactions) {
       this.setState({
         loaded: true,
@@ -45,9 +50,9 @@ class DashMainPage extends Component {
       <div>
         {
           loaded && (
-            <div>
-              <TransactionTable transactions={transactions} />
+            <div className="dash-container" style={containerStyle}>
               <LineGraph amounts={amounts} />
+              <TransactionTable transactions={transactions} />
             </div>
           )
         }
