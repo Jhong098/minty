@@ -15,7 +15,6 @@ const TransactionReducer = (state = initialState, action) => {
       };
 
     case GET_AMOUNT_BY_DAY :
-    console.log(action)
       return {
         ...state, amounts: action.amounts,
       };

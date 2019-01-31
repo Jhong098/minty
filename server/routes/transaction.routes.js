@@ -16,4 +16,6 @@ router.route('/transactions/:cuid').delete(TransactionController.deleteTransacti
 
 router.route('/transactionAmountsByDay').get(TransactionController.getDailyAggregatedTransactions);
 
+router.route('/transactionsCountByCategory').get(TransactionController.getCategoryData);
+
 export default router;

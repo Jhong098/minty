@@ -15,7 +15,8 @@ const containerStyle = {
   display: 'flex',
   width: '100%',
   height: '100vh',
-  padding: '80px',
+  paddingTop: '80px',
+  paddingLeft: '80px',
 };
 
 class DashMainPage extends Component {

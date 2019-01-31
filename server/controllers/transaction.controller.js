@@ -34,6 +34,24 @@ export function getDailyAggregatedTransactions(req, res) {
   });
 }
 
+export function getCategoryData(req, res) {
+  Transaction.aggregate([{
+    $group: {
+      _id: {
+        category: {
+          $arrayElemAt: ['$category', 1]
+        }
+      },
+      count: {
+        $sum: 1
+      }
+    }
+  }], (err, result) => {
+    if (err) res.status(500).send(err);
+    res.json({ result });
+  });
+}
+
 /**
  * Get all transactions
  * @param req
