@@ -42,6 +42,7 @@ const renderActiveShape = (props) => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
+  console.log(payload)
 
   return (
     <g>
@@ -66,9 +67,9 @@ const renderActiveShape = (props) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} Times`}</text>
       <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
   );
@@ -86,8 +87,10 @@ class PieGraph extends React.Component {
   };
 
   render() {
-    const { classes, counts } = this.props;
+    const { classes, data } = this.props;
     const { activeIndex } = this.state;
+
+    console.log(data)
 
     return (
       <Card className={classes.card}>
@@ -100,12 +103,12 @@ class PieGraph extends React.Component {
               <Pie
                 activeIndex={activeIndex}
                 activeShape={renderActiveShape}
-                data={counts}
-                dataKey="count"
+                data={data}
+                dataKey="value"
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={80}
+                innerRadius={70}
+                outerRadius={100}
                 fill="#8884d8"
                 onMouseEnter={this.onPieEnter}
               />
@@ -129,9 +132,9 @@ class PieGraph extends React.Component {
 
 PieGraph.propTypes = {
   classes: PropTypes.object.isRequired,
-  counts: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.object.isRequired,
-    count: PropTypes.number.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
   })),
 };
 

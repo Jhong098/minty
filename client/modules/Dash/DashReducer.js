@@ -20,6 +20,7 @@ const TransactionReducer = (state = initialState, action) => {
       };
 
     case GET_CATEGORY_COUNTS :
+      console.log(action.counts)
       return {
         ...state, counts: action.counts,
       };

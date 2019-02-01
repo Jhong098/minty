@@ -12,7 +12,9 @@ export function configureStore(initialState = {}) {
     applyMiddleware(thunk),
   ];
 
-  const store = createStore(rootReducer, initialState, composeWithDevTools(...enhancers));
+  const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
+
+  const store = createStore(rootReducer, initialState, composeEnhancers(...enhancers));
 
   // For hot reloading reducers
   if (module.hot) {

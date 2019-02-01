@@ -1,4 +1,5 @@
 import callApi from '../../util/apiCaller';
+import { processCatogoriesData } from '../../util/processData';
 
 export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
@@ -58,12 +59,13 @@ export function fetchAmountsByDay() {
 export function fetchCategoryCounts() {
   return (dispatch) => {
     return callApi('transactionsCountByCategory').then(res => {
-      dispatch(getCategoryCounts(res.result));
+      dispatch(getCategoryCounts(processCatogoriesData(res.result)));
     });
   };
 }
 
 export function fetchDashData() {
+  console.log('called fetch')
   return dispatch => Promise.all([
     dispatch(fetchTransactions()),
     dispatch(fetchAmountsByDay()),

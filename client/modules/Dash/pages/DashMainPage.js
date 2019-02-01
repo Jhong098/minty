@@ -10,7 +10,7 @@ import { fetchDashData } from '../DashActions';
 
 // Import Selectors
 import { getTransactions, getAmountsByDay, getCategoryCounts } from '../DashReducer';
-import PieChart from '../components/PieChart';
+import PieGraph from '../components/PieGraph';
 
 const containerStyle = {
   display: 'flex',
@@ -41,6 +41,8 @@ class DashMainPage extends Component {
   }
 
   componentWillReceiveProps({ amounts, transactions, counts }) {
+    console.log('in dash')
+    console.log(counts)
     if (amounts && transactions && counts) {
       this.setState({
         loaded: true,
@@ -51,7 +53,19 @@ class DashMainPage extends Component {
     }
   }
 
+  shouldComponentUpdate({ amounts, transactions, counts }, nextState) {
+    const { amounts: _amounts, transactions: _transactions, counts: _counts } = this.props;
+    if (amounts === _amounts && transactions === _transactions && counts === _counts) {
+      return false;
+    }
+    if (nextState.loaded === this.state.loaded) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
+    console.log('render')
     const { loaded, transactions, amounts, counts } = this.state;
     return (
       <div>
@@ -60,7 +74,7 @@ class DashMainPage extends Component {
             <div className="dash-container" style={containerStyle}>
               <LineGraph amounts={amounts} />
               <TransactionTable transactions={transactions} />
-              <PieChart counts={counts} />
+              <PieGraph data={counts} />
             </div>
           )
         }
@@ -76,6 +90,8 @@ DashMainPage.need = [() => { return fetchDashData(); }];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
+  console.log('in mapstatetoprops')
+  console.log(state)
   return {
     transactions: getTransactions(state),
     amounts: getAmountsByDay(state),
@@ -94,11 +110,11 @@ DashMainPage.propTypes = {
     _id: PropTypes.object.isRequired,
     dailyTotal: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
-  })),
+  })).isRequired,
   counts: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.object.isRequired,
-    count: PropTypes.number.isRequired,
-  })),
+    name: PropTypes.string,
+    value: PropTypes.number,
+  })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
