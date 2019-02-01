@@ -1,4 +1,4 @@
-import { ADD_TRANSACTION, ADD_TRANSACTIONS, GET_AMOUNT_BY_DAY } from './DashActions';
+import { ADD_TRANSACTION, GET_TRANSACTIONS, GET_AMOUNT_BY_DAY, GET_CATEGORY_COUNTS } from './DashActions';
 
 const initialState = { data: [] };
 
@@ -9,14 +9,19 @@ const TransactionReducer = (state = initialState, action) => {
         data: [action.data, ...state.data],
       };
 
-    case ADD_TRANSACTIONS :
+    case GET_TRANSACTIONS :
       return {
-        data: action.transactions,
+        ...state, transactions: action.transactions,
       };
 
     case GET_AMOUNT_BY_DAY :
       return {
         ...state, amounts: action.amounts,
+      };
+
+    case GET_CATEGORY_COUNTS :
+      return {
+        ...state, counts: action.counts,
       };
 
     default:
@@ -25,13 +30,16 @@ const TransactionReducer = (state = initialState, action) => {
 };
 
 // Get all posts
-export const getTransactions = state => state.dash.data;
+export const getTransactions = state => state.dash.transactions;
 
 // Get post by cuid
 export const getTransaction = (state, cuid) => state.data.filter(transaction => transaction.cuid === cuid)[0];
 
 // Get amounts by day
 export const getAmountsByDay = state => state.dash.amounts;
+
+// Get category counts
+export const getCategoryCounts = state => state.dash.counts;
 
 // Export Reducer
 export default TransactionReducer;

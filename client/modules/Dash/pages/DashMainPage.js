@@ -6,10 +6,11 @@ import TransactionTable from '../components/TransactionTable';
 import LineGraph from '../components/LineGraph';
 
 // Import Actions
-import { fetchTransactions, fetchAmountsByDay } from '../DashActions';
+import { fetchDashData } from '../DashActions';
 
 // Import Selectors
-import { getTransactions, getAmountsByDay } from '../DashReducer';
+import { getTransactions, getAmountsByDay, getCategoryCounts } from '../DashReducer';
+import PieChart from '../components/PieChart';
 
 const containerStyle = {
   display: 'flex',
@@ -31,22 +32,27 @@ class DashMainPage extends Component {
   }
 
   componentDidMount = () => {
-    this.props.dispatch(fetchTransactions());
-    this.props.dispatch(fetchAmountsByDay());
+    this.props.dispatch(fetchDashData()).then(() => {
+      console.log('fetched all data');
+    });
+    // this.props.dispatch(fetchTransactions());
+    // this.props.dispatch(fetchAmountsByDay());
+    // this.props.dispatch(fetchCategoryCounts());
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.amounts && nextProps.transactions) {
+  componentWillReceiveProps({ amounts, transactions, counts }) {
+    if (amounts && transactions && counts) {
       this.setState({
         loaded: true,
-        transactions: [...nextProps.transactions],
-        amounts: [...nextProps.amounts],
+        transactions: [...transactions],
+        amounts: [...amounts],
+        counts: [...counts],
       });
     }
   }
 
   render() {
-    const { loaded, transactions, amounts } = this.state;
+    const { loaded, transactions, amounts, counts } = this.state;
     return (
       <div>
         {
@@ -54,6 +60,7 @@ class DashMainPage extends Component {
             <div className="dash-container" style={containerStyle}>
               <LineGraph amounts={amounts} />
               <TransactionTable transactions={transactions} />
+              <PieChart counts={counts} />
             </div>
           )
         }
@@ -62,14 +69,17 @@ class DashMainPage extends Component {
   }
 }
 
-DashMainPage.need = [() => { return fetchTransactions(); }];
-DashMainPage.need = [() => { return fetchAmountsByDay(); }];
+DashMainPage.need = [() => { return fetchDashData(); }];
+// DashMainPage.need = [() => { return fetchTransactions(); }];
+// DashMainPage.need = [() => { return fetchAmountsByDay(); }];
+// DashMainPage.need = [() => { return fetchCategoryCounts(); }];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
     transactions: getTransactions(state),
     amounts: getAmountsByDay(state),
+    counts: getCategoryCounts(state),
   };
 }
 
@@ -83,6 +93,10 @@ DashMainPage.propTypes = {
   amounts: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.object.isRequired,
     dailyTotal: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+  })),
+  counts: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.object.isRequired,
     count: PropTypes.number.isRequired,
   })),
   dispatch: PropTypes.func.isRequired,

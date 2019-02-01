@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const styles = theme => ({
   card: {
@@ -38,13 +38,15 @@ function LineGraph(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Daily Spendings
         </Typography>
-        <LineChart width={500} height={300} data={amounts} margin={{ top: 5, right: 30, left: 5, bottom: 5 }}>
-          <XAxis />
-          <YAxis />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Line type="monotone" dataKey="dailyTotal" stroke="#8884d8" activeDot={{ r: 8 }} />
-        </LineChart>
+        <ResponsiveContainer width="90%" height={400}>
+          <LineChart width={500} height={300} data={amounts} margin={{ top: 5, right: 30, left: 5, bottom: 5 }}>
+            <XAxis />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Line type="monotone" dataKey="dailyTotal" stroke="#8884d8" activeDot={{ r: 8 }} />
+          </LineChart>
+        </ResponsiveContainer>
         {/* <Typography className={classes.pos} color="textSecondary">
           adjective
         </Typography>

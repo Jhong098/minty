@@ -1,9 +1,10 @@
 /**
  * Main store function
  */
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export function configureStore(initialState = {}) {
   // Middleware and store enhancers
@@ -11,7 +12,7 @@ export function configureStore(initialState = {}) {
     applyMiddleware(thunk),
   ];
 
-  const store = createStore(rootReducer, initialState, compose(...enhancers));
+  const store = createStore(rootReducer, initialState, composeWithDevTools(...enhancers));
 
   // For hot reloading reducers
   if (module.hot) {

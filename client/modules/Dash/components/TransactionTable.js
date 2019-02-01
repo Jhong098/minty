@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+// import 'react-table/react-table.css';
+// require('../../../react-table.css');
 
 const styles = theme => ({
   root: {

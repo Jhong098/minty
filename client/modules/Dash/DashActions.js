@@ -1,12 +1,13 @@
 import callApi from '../../util/apiCaller';
 
-export const ADD_TRANSACTIONS = 'ADD_TRANSACTIONS';
+export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const GET_AMOUNT_BY_DAY = 'GET_AMOUNT_BY_DAY';
+export const GET_CATEGORY_COUNTS = 'GET_CATEGORY_COUNTS';
 
-export function addTransactions(transactions) {
+export function getTransactions(transactions) {
   return {
-    type: ADD_TRANSACTIONS,
+    type: GET_TRANSACTIONS,
     transactions,
   };
 }
@@ -25,10 +26,17 @@ export function getAmountsByDay(amounts) {
   };
 }
 
+export function getCategoryCounts(counts) {
+  return {
+    type: GET_CATEGORY_COUNTS,
+    counts,
+  };
+}
+
 export function fetchTransactions() {
   return (dispatch) => {
     return callApi('transactions').then(res => {
-      dispatch(addTransactions(res.transactions));
+      dispatch(getTransactions(res.transactions));
     });
   };
 }
@@ -45,4 +53,20 @@ export function fetchAmountsByDay() {
       dispatch(getAmountsByDay(res.result));
     });
   };
+}
+
+export function fetchCategoryCounts() {
+  return (dispatch) => {
+    return callApi('transactionsCountByCategory').then(res => {
+      dispatch(getCategoryCounts(res.result));
+    });
+  };
+}
+
+export function fetchDashData() {
+  return dispatch => Promise.all([
+    dispatch(fetchTransactions()),
+    dispatch(fetchAmountsByDay()),
+    dispatch(fetchCategoryCounts()),
+  ]);
 }
