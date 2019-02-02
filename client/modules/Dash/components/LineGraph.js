@@ -39,7 +39,7 @@ function LineGraph(props) {
           Daily Spendings
         </Typography>
         <ResponsiveContainer width="90%" height={400}>
-          <LineChart width={500} height={300} data={amounts} margin={{ top: 5, right: 30, left: 5, bottom: 5 }}>
+          <LineChart data={amounts} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
             <XAxis />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />

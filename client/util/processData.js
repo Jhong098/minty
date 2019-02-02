@@ -3,7 +3,6 @@
 const filteredCategories = ['Interest', 'Credit'];
 
 export function processAmountsData(data) {
-
 }
 
 export function processTransactionData(data) {

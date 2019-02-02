@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { ResponsiveContainer, Pie, PieChart, Sector } from 'recharts';
+import { ResponsiveContainer, Pie, PieChart, Sector, Cell } from 'recharts';
 
 const styles = theme => ({
   card: {
@@ -29,6 +29,8 @@ const styles = theme => ({
   },
 });
 
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#801bc4'];
+
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
@@ -48,7 +50,7 @@ const renderActiveShape = (props) => {
     <g>
       {
         words.map((word, index) => (
-          <text x={cx} y={cy} dy={words.length > 1 ? (13 * (index - 0.5)) : 8} textAnchor="middle" fill={fill}>{word}</text>
+          <text key={word} x={cx} y={cy} dy={words.length > 1 ? (13 * (index - 0.5)) : 8} textAnchor="middle" fill={fill}>{word}</text>
         ))
       }
       <Sector
@@ -69,8 +71,8 @@ const renderActiveShape = (props) => {
         outerRadius={outerRadius + 10}
         fill={fill}
       />
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
       <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} Time${value > 1 ? 's' : ''}`}</text>
       <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
         {`(${(percent * 100).toFixed(2)}%)`}
@@ -113,7 +115,11 @@ class PieGraph extends React.Component {
                 outerRadius={100}
                 fill="#8884d8"
                 onMouseEnter={this.onPieEnter}
-              />
+              >
+                {
+                  data.map((entry, index) => <Cell key={entry.name} fill={COLORS[index % COLORS.length]}/>)
+                }
+              </Pie>
               {/* <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label /> */}
             </PieChart>
           </ResponsiveContainer>

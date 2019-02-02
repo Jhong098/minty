@@ -4,11 +4,16 @@ import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
 
 export function getDailyAggregatedTransactions(req, res) {
-  Transaction.aggregate([{
-    $group: {
+  Transaction.aggregate([
+    {
+      $match: {
+        $and: [{name:{$regex: "^((?!Interest).)*$"}},{name:{$regex: "^((?!INTERAC).)*$"}},{name:{$regex: "^((?!Credit).)*$"}},{name:{$regex: "^((?!Payment).)*$", $options: 'i'}}]
+      }
+    },
+    { $group: {
       _id: {
         day: {
-          $dayOfMonth: {
+          $dayOfYear: {
             $dateFromString: {
               dateString: "$dateISO"
             }
@@ -30,6 +35,7 @@ export function getDailyAggregatedTransactions(req, res) {
     }
   }], (err, result) => {
     if (err) res.status(500).send(err);
+    console.log(result)
     res.json({ result });
   });
 }
@@ -58,13 +64,20 @@ export function getCategoryData(req, res) {
  * @param res
  * @returns void
  */
+
+export function filterTransactions(req, res) {
+  return Transaction.find({$and: [{name:{$regex: "^((?!Interest).)*$"}},{name:{$regex: "^((?!INTERAC).)*$"}},{name:{$regex: "^((?!Credit).)*$"}},{name:{$regex: "^((?!Payment).)*$", $options: 'i'}}]});
+}
+
 export function getTransactions(req, res) {
-  Transaction.find().sort('-dateAdded').exec((err, transactions) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ transactions });
-  });
+  filterTransactions()
+    .sort('-dateAdded')
+    .exec((err, transactions) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json({ transactions });
+    });
 }
 
 /**

@@ -4,19 +4,19 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 import ReactTable from 'react-table';
-// import 'react-table/react-table.css';
-// require('../../../react-table.css');
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
     width: '100%',
     height: '60%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     padding: '10px',
     margin: theme.spacing.unit * 2,
     overflowX: 'auto',
+  },
+  title: {
+    fontSize: 16,
+    margin: theme.spacing.unit,
   },
 });
 
@@ -47,6 +47,9 @@ class TransactionTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          Transactions
+        </Typography>
         <ReactTable
           data={data}
           columns={[
