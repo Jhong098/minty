@@ -28,6 +28,7 @@ class DashMainPage extends Component {
       loaded: false,
       transactions: [],
       amounts: [],
+      counts: [],
     };
   }
 
@@ -35,15 +36,10 @@ class DashMainPage extends Component {
     this.props.dispatch(fetchDashData()).then(() => {
       console.log('fetched all data');
     });
-    // this.props.dispatch(fetchTransactions());
-    // this.props.dispatch(fetchAmountsByDay());
-    // this.props.dispatch(fetchCategoryCounts());
   }
 
   componentWillReceiveProps({ amounts, transactions, counts }) {
-    console.log('in dash')
-    console.log(counts)
-    if (amounts && transactions && counts) {
+    if (amounts.length && transactions.length && counts.length) {
       this.setState({
         loaded: true,
         transactions: [...transactions],
@@ -54,18 +50,14 @@ class DashMainPage extends Component {
   }
 
   shouldComponentUpdate({ amounts, transactions, counts }, nextState) {
-    const { amounts: _amounts, transactions: _transactions, counts: _counts } = this.props;
-    if (amounts === _amounts && transactions === _transactions && counts === _counts) {
-      return false;
-    }
     if (nextState.loaded === this.state.loaded) {
+      // console.log('do not render, already loaded')
       return false;
     }
     return true;
   }
 
   render() {
-    console.log('render')
     const { loaded, transactions, amounts, counts } = this.state;
     return (
       <div>
@@ -84,14 +76,9 @@ class DashMainPage extends Component {
 }
 
 DashMainPage.need = [() => { return fetchDashData(); }];
-// DashMainPage.need = [() => { return fetchTransactions(); }];
-// DashMainPage.need = [() => { return fetchAmountsByDay(); }];
-// DashMainPage.need = [() => { return fetchCategoryCounts(); }];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
-  console.log('in mapstatetoprops')
-  console.log(state)
   return {
     transactions: getTransactions(state),
     amounts: getAmountsByDay(state),

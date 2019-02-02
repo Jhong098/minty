@@ -42,11 +42,15 @@ const renderActiveShape = (props) => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
-  console.log(payload)
+  const words = payload.name.split(' ');
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+      {
+        words.map((word, index) => (
+          <text x={cx} y={cy} dy={words.length > 1 ? (13 * (index - 0.5)) : 8} textAnchor="middle" fill={fill}>{word}</text>
+        ))
+      }
       <Sector
         cx={cx}
         cy={cy}
@@ -67,7 +71,7 @@ const renderActiveShape = (props) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} Times`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} Time${value > 1 ? 's' : ''}`}</text>
       <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
         {`(${(percent * 100).toFixed(2)}%)`}
       </text>
@@ -90,16 +94,14 @@ class PieGraph extends React.Component {
     const { classes, data } = this.props;
     const { activeIndex } = this.state;
 
-    console.log(data)
-
     return (
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             Categories
           </Typography>
-          <ResponsiveContainer width="90%" height={400}>
-            <PieChart width={730} height={350}>
+          <ResponsiveContainer width="100%" height={400}>
+            <PieChart>
               <Pie
                 activeIndex={activeIndex}
                 activeShape={renderActiveShape}
