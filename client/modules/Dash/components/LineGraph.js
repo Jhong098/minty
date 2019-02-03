@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import CustomTooltip from './CustomTooltip';
 
 const styles = theme => ({
   card: {
@@ -43,7 +44,7 @@ function LineGraph(props) {
             <XAxis />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             <Line type="monotone" dataKey="dailyTotal" stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>

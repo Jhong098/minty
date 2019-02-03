@@ -11,14 +11,22 @@ import { fetchDashData } from '../DashActions';
 // Import Selectors
 import { getTransactions, getAmountsByDay, getCategoryCounts } from '../DashReducer';
 import PieGraph from '../components/PieGraph';
+import WeeklyOverview from '../components/WeeklyOverview';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 
-const containerStyle = {
-  display: 'flex',
-  width: '100%',
-  height: '100vh',
-  paddingTop: '80px',
-  paddingLeft: '80px',
-};
+const containerStyle = css`
+  display: flex;
+  width: 93%;
+  height: 100vh;
+  margin-top: 80px;
+  margin-left: 100px;
+  flex-wrap: wrap;
+
+  &>* {
+    flex: 1 1 33.3333%;
+  }
+`;
 
 class DashMainPage extends Component {
 
@@ -49,7 +57,7 @@ class DashMainPage extends Component {
     }
   }
 
-  shouldComponentUpdate({ amounts, transactions, counts }, nextState) {
+  shouldComponentUpdate(nextState) {
     if (nextState.loaded === this.state.loaded) {
       // console.log('do not render, already loaded')
       return false;
@@ -63,10 +71,11 @@ class DashMainPage extends Component {
       <div>
         {
           loaded && (
-            <div className="dash-container" style={containerStyle}>
+            <div className="dash-container" css={containerStyle}>
               <LineGraph amounts={amounts} />
               <TransactionTable transactions={transactions} />
               <PieGraph data={counts} />
+              <WeeklyOverview amounts={amounts} />
             </div>
           )
         }
