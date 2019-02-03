@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 // TODO: add tooltip styles
 const toolTip = {
-
+  background: 'white',
+  border: '1px solid grey',
+  padding: '5px',
 };
 
 function dateFromDay(year, day) {

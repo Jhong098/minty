@@ -122,7 +122,7 @@ class DrawerBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              myMint
+              Minty
             </Typography>
             {/* <Button color="inherit">Login</Button> */}
           </Toolbar>

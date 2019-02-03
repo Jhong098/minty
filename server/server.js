@@ -48,6 +48,7 @@ import { fetchComponentData } from './util/fetchData';
 import writeTransactionsToDB from './writeTransactionsToDB';
 import writeBalancesToDB from './writeBalancesToDB';
 import transaction from './routes/transaction.routes';
+import balance from './routes/balance.routes';
 // import dummyData from './dummyData';
 import serverConfig from './config';
 
@@ -78,6 +79,7 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api', transaction);
+app.use('/api', balance);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

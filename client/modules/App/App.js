@@ -35,7 +35,7 @@ export class App extends Component {
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
-            title="myMint"
+            title="Minty"
             meta={[
               { charset: 'utf-8' },
               {
