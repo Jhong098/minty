@@ -45,7 +45,8 @@ import Helmet from 'react-helmet';
 // Import required modules
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
-import writeToDB from './writeTransactionsToDB';
+import writeTransactionsToDB from './writeTransactionsToDB';
+import writeBalancesToDB from './writeBalancesToDB';
 import transaction from './routes/transaction.routes';
 // import dummyData from './dummyData';
 import serverConfig from './config';
@@ -65,8 +66,9 @@ if (process.env.NODE_ENV !== 'test') {
     // feed some dummy data in DB.
     //dummyData();
 
-    // feed latest transactions to DB
-    writeToDB();
+    // feed latest transactions and balances to DB
+    writeTransactionsToDB();
+    writeBalancesToDB();
   });
 }
 
