@@ -15,6 +15,7 @@ const styles = {
   card: {
     minWidth: 275,
     width: '30%',
+    padding: '16px',
   },
   bullet: {
     display: 'inline-block',
@@ -33,8 +34,6 @@ const styles = {
 
 function Balances(props) {
   const { classes, balances } = props;
-  console.log(balances)
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.card}>
@@ -49,7 +48,7 @@ function Balances(props) {
                 {balance.name}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {`$${balance.balance}`}
+                {`$${"300.00"}`}
               </Typography>
               {index === balances.length - 1 ? null : <Divider />}
             </div>

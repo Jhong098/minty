@@ -39,6 +39,7 @@ const renderActiveShape = (props) => {
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
   const words = payload.name.split(' ');
+  console.log(payload)
 
   return (
     <g>

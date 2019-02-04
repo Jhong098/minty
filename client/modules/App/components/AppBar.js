@@ -125,9 +125,12 @@ class DrawerBar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Minty
-            </Typography>
+            <Link to="/" css={css`text-decoration: none; color: white; display: flex; align-items: center;`}>
+              <img css={css`width: 50px; padding: 10px;`} src="https://img.icons8.com/dusk/64/000000/us-dollar.png" alt="icon" />
+              <Typography variant="h6" color="inherit" noWrap>
+                Minty
+              </Typography>
+            </Link>
             {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
