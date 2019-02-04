@@ -67,9 +67,9 @@ class LandingPage extends React.Component {
       targets: 'img',
       opacity: [0, 1],
       scale: [0, 1],
-      duration: 1500,
+      duration: 1200,
       // delay: 500,
-      delay: anime.stagger(500),
+      delay: anime.stagger(300),
     });
   }
 

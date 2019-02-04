@@ -1,12 +1,19 @@
-import { ADD_TRANSACTION, GET_TRANSACTIONS, GET_AMOUNT_BY_DAY, GET_CATEGORY_COUNTS } from './DashActions';
+import {
+  ADD_TRANSACTION,
+  GET_TRANSACTIONS,
+  GET_AMOUNT_BY_DAY,
+  GET_CATEGORY_COUNTS,
+  GET_BALANCES,
+} from './DashActions';
 
 const initialState = {
   transactions: [],
   amounts: [],
   counts: [],
+  balances: [],
 };
 
-const TransactionReducer = (state = initialState, action) => {
+const DashReducer = (state = initialState, action) => {
   switch (action.type) {
     // case ADD_TRANSACTION :
     //  console.log('add called')
@@ -32,6 +39,11 @@ const TransactionReducer = (state = initialState, action) => {
         ...state, counts: action.counts,
       };
 
+    case GET_BALANCES :
+      return {
+        ...state, balances: action.balances,
+      };
+
     default:
       // console.log('default called')
       return state;
@@ -50,5 +62,8 @@ export const getAmountsByDay = state => state.dash.amounts;
 // Get category counts
 export const getCategoryCounts = state => state.dash.counts;
 
+// Get Balances
+export const getBalances = state => state.dash.balances;
+
 // Export Reducer
-export default TransactionReducer;
+export default DashReducer;

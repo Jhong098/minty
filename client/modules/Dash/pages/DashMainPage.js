@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 // Import Components
 import TransactionTable from '../components/TransactionTable';
 import LineGraph from '../components/LineGraph';
+import Balances from '../components/Balances';
 
 // Import Actions
 import { fetchDashData } from '../DashActions';
 
 // Import Selectors
-import { getTransactions, getAmountsByDay, getCategoryCounts } from '../DashReducer';
+import { getTransactions, getAmountsByDay, getCategoryCounts, getBalances } from '../DashReducer';
 import PieGraph from '../components/PieGraph';
 import WeeklyOverview from '../components/WeeklyOverview';
 /** @jsx jsx */
@@ -20,11 +21,15 @@ const containerStyle = css`
   width: 93%;
   height: 100vh;
   margin-top: 80px;
-  margin-left: 100px;
+  margin-left: 80px;
   flex-wrap: wrap;
 
   &>* {
     flex: 1 1 33.3333%;
+    width: 60%;
+    minWidth: 275px;
+    height: 60%;
+    margin: 16px;
   }
 `;
 
@@ -46,13 +51,14 @@ class DashMainPage extends Component {
     });
   }
 
-  componentWillReceiveProps({ amounts, transactions, counts }) {
-    if (amounts.length && transactions.length && counts.length) {
+  componentWillReceiveProps({ amounts, transactions, counts, balances }) {
+    if (amounts.length && transactions.length && counts.length && balances.length) {
       this.setState({
         loaded: true,
         transactions: [...transactions],
         amounts: [...amounts],
         counts: [...counts],
+        balances: [...balances],
       });
     }
   }
@@ -66,12 +72,13 @@ class DashMainPage extends Component {
   }
 
   render() {
-    const { loaded, transactions, amounts, counts } = this.state;
+    const { loaded, transactions, amounts, counts, balances } = this.state;
     return (
       <div>
         {
           loaded && (
             <div className="dash-container" css={containerStyle}>
+              <Balances balances={balances} />
               <LineGraph amounts={amounts} />
               <TransactionTable transactions={transactions} />
               <PieGraph data={counts} />
@@ -92,6 +99,7 @@ function mapStateToProps(state) {
     transactions: getTransactions(state),
     amounts: getAmountsByDay(state),
     counts: getCategoryCounts(state),
+    balances: getBalances(state),
   };
 }
 
@@ -110,6 +118,10 @@ DashMainPage.propTypes = {
   counts: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.number,
+  })).isRequired,
+  balances: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    balance: PropTypes.number,
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

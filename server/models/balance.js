@@ -6,4 +6,4 @@ const balanceSchema = new Schema({
   balance: { type: 'Number', required: true },
 });
 
-export default mongoose.model('balances', balanceSchema);
+export default mongoose.model('Balances', balanceSchema);

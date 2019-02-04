@@ -9,12 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import { ResponsiveContainer, Pie, PieChart, Sector, Cell } from 'recharts';
 
 const styles = theme => ({
-  card: {
-    width: '60%',
-    minWidth: 275,
-    height: '60%',
-    margin: theme.spacing.unit * 2,
-  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',

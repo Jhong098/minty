@@ -8,10 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    height: '60%',
     padding: '10px',
-    margin: theme.spacing.unit * 2,
     overflowX: 'auto',
   },
   title: {

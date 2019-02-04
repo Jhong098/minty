@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+import { Link } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
@@ -19,6 +22,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import Dashboard from '@material-ui/icons/Dashboard';
 import AccountBox from '@material-ui/icons/AccountBox';
+import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 
 const drawerWidth = 240;
 
@@ -147,10 +151,16 @@ class DrawerBar extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>
-            <ListItem button key="Dashboard">
-              <ListItemIcon><Dashboard /></ListItemIcon>
-              <ListItemText primary="Dashboard" />
+          <List css={css`a { text-decoration: none }`}>
+            <Link to="/dash">
+              <ListItem button key="Dashboard">
+                <ListItemIcon><Dashboard /></ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItem>
+            </Link>
+            <ListItem button key="Balances">
+              <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+              <ListItemText primary="Balances" />
             </ListItem>
             <ListItem button key="Accounts">
               <ListItemIcon><AccountBox /></ListItemIcon>

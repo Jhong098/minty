@@ -10,12 +10,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import CustomTooltip from './CustomTooltip';
 
 const styles = theme => ({
-  card: {
-    width: '60%',
-    minWidth: 275,
-    height: '60%',
-    margin: theme.spacing.unit * 2,
-  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',

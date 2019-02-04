@@ -10,12 +10,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { meanBy, maxBy } from 'lodash';
 
 const styles = theme => ({
-  card: {
-    width: '60%',
-    minWidth: 275,
-    height: '60%',
-    margin: theme.spacing.unit * 2,
-  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',

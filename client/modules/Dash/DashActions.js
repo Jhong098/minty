@@ -5,6 +5,7 @@ export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const GET_AMOUNT_BY_DAY = 'GET_AMOUNT_BY_DAY';
 export const GET_CATEGORY_COUNTS = 'GET_CATEGORY_COUNTS';
+export const GET_BALANCES = 'GET_BALANCES';
 
 export function getTransactions(transactions) {
   return {
@@ -31,6 +32,13 @@ export function getCategoryCounts(counts) {
   return {
     type: GET_CATEGORY_COUNTS,
     counts,
+  };
+}
+
+export function getBalances(balances) {
+  return {
+    type: GET_BALANCES,
+    balances,
   };
 }
 
@@ -64,9 +72,18 @@ export function fetchCategoryCounts() {
   };
 }
 
+export function fetchBalances() {
+  return (dispatch) => {
+    return callApi('balances').then(res => {
+      dispatch(getBalances(res.balances));
+    });
+  };
+}
+
 export function fetchDashData() {
   console.log('called fetch')
   return dispatch => Promise.all([
+    dispatch(fetchBalances()),
     dispatch(fetchTransactions()),
     dispatch(fetchAmountsByDay()),
     dispatch(fetchCategoryCounts()),
