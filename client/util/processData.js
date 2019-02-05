@@ -25,3 +25,7 @@ export function processCatogoriesData(data) {
     return result;
   }, []);
 }
+
+export function retrieveCategories(data) {
+  console.log(data);
+}
