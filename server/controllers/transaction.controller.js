@@ -44,8 +44,11 @@ export function getCategoryData(req, res) {
   Transaction.aggregate([{
     $group: {
       _id: {
-        category: {
+        category_2: {
           $arrayElemAt: ['$category', 1]
+        },
+        category_1: {
+          $arrayElemAt: ['$category', 0]
         }
       },
       count: {

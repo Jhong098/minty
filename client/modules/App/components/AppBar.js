@@ -23,6 +23,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Dashboard from '@material-ui/icons/Dashboard';
 import AccountBox from '@material-ui/icons/AccountBox';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
+import Poll from '@material-ui/icons/Poll';
 
 const drawerWidth = 240;
 
@@ -159,6 +160,12 @@ class DrawerBar extends React.Component {
               <ListItem button key="Dashboard">
                 <ListItemIcon><Dashboard /></ListItemIcon>
                 <ListItemText primary="Dashboard" />
+              </ListItem>
+            </Link>
+            <Link to="/budget">
+              <ListItem button key="budget">
+                <ListItemIcon><Poll /></ListItemIcon>
+                <ListItemText primary="Budget" />
               </ListItem>
             </Link>
             <ListItem button key="Balances">
