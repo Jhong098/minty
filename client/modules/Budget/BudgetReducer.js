@@ -7,6 +7,8 @@ const initialState = {
 const BudgetReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CATEGORIES :
+      console.log('in reducer')
+      console.log(action.categories)
       return {
         ...state, categories: action.categories,
       };
@@ -16,6 +18,10 @@ const BudgetReducer = (state = initialState, action) => {
   }
 };
 
-export const getCategories = state => state.budget.categories;
+export const getCategories = state => {
+  if (state.budget.categories.length) {
+    return state.budget.categories;
+  }
+};
 
 export default BudgetReducer;

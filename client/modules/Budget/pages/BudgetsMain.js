@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // Import Components
+import CategoryIcons from '../components/CategoryIcons';
 
 // Import Actions
 import { fetchCategories } from '../BudgetActions';
@@ -11,6 +12,7 @@ import { getCategories } from '../BudgetReducer';
 
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import BudgetPanel from '../components/BudgetPanel';
 
 const containerStyle = css`
   display: flex;
@@ -20,7 +22,7 @@ const containerStyle = css`
   margin-left: 80px;
 `;
 
-class Budgets extends Component {
+class BudgetsMain extends Component {
 
   constructor(props) {
     super(props);
@@ -34,35 +36,33 @@ class Budgets extends Component {
     this.props.dispatch(fetchCategories()).then(() => {
       console.log('fetched all budget data');
     });
-    // this.props.dispatch(fetchDashData()).then(() => {
-    //   console.log('fetched all data');
-    // });
   }
 
-  // componentWillReceiveProps({ amounts, transactions, counts, balances }) {
-  //   if (amounts.length && transactions.length && counts.length && balances.length) {
-  //     this.setState({
-  //       loaded: true,
-  //       transactions: [...transactions],
-  //       amounts: [...amounts],
-  //       counts: [...counts],
-  //       balances: [...balances],
-  //     });
-  //   }
-  // }
+  componentWillReceiveProps({ categories }) {
+    console.log(categories)
+    if (categories.length) {
+      this.setState({
+        loaded: true,
+        categories: [...categories],
+      });
+    }
+  }
 
-  // shouldComponentUpdate(nextState) {
-  //   if (nextState.loaded === this.state.loaded) {
-  //     // console.log('do not render, already loaded')
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  shouldComponentUpdate(nextState) {
+    if (nextState.loaded === this.state.loaded) {
+      // console.log('do not render, already loaded')
+      return false;
+    }
+    return true;
+  }
 
   render() {
+    const { categories } = this.state;
+
     return (
       <div className="budget-container" css={containerStyle}>
-        BUDGET
+        <CategoryIcons categories={categories} />
+        <BudgetPanel />
       </div>
     );
   }
@@ -77,13 +77,13 @@ function mapStateToProps(state) {
   };
 }
 
-Budgets.propTypes = {
+BudgetsMain.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-Budgets.contextTypes = {
+BudgetsMain.contextTypes = {
   router: PropTypes.object,
 };
 
-export default connect(mapStateToProps)(Budgets);
+export default connect(mapStateToProps)(BudgetsMain);
 

@@ -10,7 +10,7 @@ import Helmet from 'react-helmet';
 import AppBar from './components/AppBar';
 
 // Import Actions
-// import { toggleAddPost } from './AppActions';
+import { fetchAppData } from './AppActions';
 // import { switchLanguage } from '../../modules/Intl/IntlActions';
 
 let DevTools;
@@ -26,7 +26,10 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
+    this.setState({ isMounted: true }); // eslint-disable-line
+    this.props.dispatch(fetchAppData()).then(() => {
+      console.log('fetched app data');
+    });
   }
 
   render() {
@@ -67,7 +70,7 @@ App.propTypes = {
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
-    intl: store.intl,
+    intl: store.intl
   };
 }
 

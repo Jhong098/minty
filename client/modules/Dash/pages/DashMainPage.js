@@ -5,14 +5,16 @@ import { connect } from 'react-redux';
 import TransactionTable from '../components/TransactionTable';
 import LineGraph from '../components/LineGraph';
 import Balances from '../components/Balances';
+import PieGraph from '../components/PieGraph';
+import WeeklyOverview from '../components/WeeklyOverview';
 
 // Import Actions
 import { fetchDashData } from '../DashActions';
 
 // Import Selectors
-import { getTransactions, getAmountsByDay, getCategoryCounts, getBalances } from '../DashReducer';
-import PieGraph from '../components/PieGraph';
-import WeeklyOverview from '../components/WeeklyOverview';
+import { getAmountsByDay, getCategoryCounts } from '../DashReducer';
+import { getBalances, getTransactions } from '../../App/AppReducer';
+
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 
@@ -39,7 +41,6 @@ class DashMainPage extends Component {
     super(props);
     this.state = {
       loaded: false,
-      transactions: [],
       amounts: [],
       counts: [],
     };
@@ -96,9 +97,9 @@ DashMainPage.need = [() => { return fetchDashData(); }];
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    transactions: getTransactions(state),
     amounts: getAmountsByDay(state),
     counts: getCategoryCounts(state),
+    transactions: getTransactions(state),
     balances: getBalances(state),
   };
 }

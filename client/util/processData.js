@@ -27,17 +27,3 @@ export function processCatogoriesData(data) {
   }, []);
 }
 
-export function retrieveCategories(data) {
-  let categories = [];
-  for (let i = 0; i < data.length; i++) {
-    if (data[i]._id.hasOwnProperty('category_1')) {
-      categories.push(data[i]._id.category_1[0]);
-    }
-    if (data[i]._id.hasOwnProperty('category_2')) {
-      categories.push(data[i]._id.category_2[0]);
-    }
-  }
-  const res = _.uniq(categories);
-  console.log(res)
-  return res;
-}

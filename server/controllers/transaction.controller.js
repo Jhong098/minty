@@ -35,7 +35,6 @@ export function getDailyAggregatedTransactions(req, res) {
     }
   }], (err, result) => {
     if (err) res.status(500).send(err);
-    console.log(result)
     res.json({ result });
   });
 }
@@ -44,11 +43,8 @@ export function getCategoryData(req, res) {
   Transaction.aggregate([{
     $group: {
       _id: {
-        category_2: {
+        category: {
           $arrayElemAt: ['$category', 1]
-        },
-        category_1: {
-          $arrayElemAt: ['$category', 0]
         }
       },
       count: {

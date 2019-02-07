@@ -1,5 +1,5 @@
 import {
-  ADD_TRANSACTION,
+  // ADD_TRANSACTION,
   GET_TRANSACTIONS,
   GET_AMOUNT_BY_DAY,
   GET_CATEGORY_COUNTS,
@@ -50,9 +50,6 @@ const DashReducer = (state = initialState, action) => {
   }
 };
 
-// Get all posts
-export const getTransactions = state => state.dash.transactions;
-
 // Get post by cuid
 // export const getTransaction = (state, cuid) => state.data.filter(transaction => transaction.cuid === cuid)[0];
 
@@ -61,9 +58,6 @@ export const getAmountsByDay = state => state.dash.amounts;
 
 // Get category counts
 export const getCategoryCounts = state => state.dash.counts;
-
-// Get Balances
-export const getBalances = state => state.dash.balances;
 
 // Export Reducer
 export default DashReducer;

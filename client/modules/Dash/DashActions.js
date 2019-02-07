@@ -1,18 +1,9 @@
 import callApi from '../../util/apiCaller';
 import { processCatogoriesData } from '../../util/processData';
 
-export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const GET_AMOUNT_BY_DAY = 'GET_AMOUNT_BY_DAY';
 export const GET_CATEGORY_COUNTS = 'GET_CATEGORY_COUNTS';
-export const GET_BALANCES = 'GET_BALANCES';
-
-export function getTransactions(transactions) {
-  return {
-    type: GET_TRANSACTIONS,
-    transactions,
-  };
-}
 
 export function addTransaction(transaction) {
   return {
@@ -32,21 +23,6 @@ export function getCategoryCounts(counts) {
   return {
     type: GET_CATEGORY_COUNTS,
     counts,
-  };
-}
-
-export function getBalances(balances) {
-  return {
-    type: GET_BALANCES,
-    balances,
-  };
-}
-
-export function fetchTransactions() {
-  return (dispatch) => {
-    return callApi('transactions').then(res => {
-      dispatch(getTransactions(res.transactions));
-    });
   };
 }
 
@@ -72,19 +48,11 @@ export function fetchCategoryCounts() {
   };
 }
 
-export function fetchBalances() {
-  return (dispatch) => {
-    return callApi('balances').then(res => {
-      dispatch(getBalances(res.balances));
-    });
-  };
-}
+
 
 export function fetchDashData() {
-  console.log('called fetch')
+  console.log('called dash fetch')
   return dispatch => Promise.all([
-    dispatch(fetchBalances()),
-    dispatch(fetchTransactions()),
     dispatch(fetchAmountsByDay()),
     dispatch(fetchCategoryCounts()),
   ]);
