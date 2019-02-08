@@ -14,8 +14,12 @@ import { getCategories } from '../BudgetReducer';
 import { jsx, css } from '@emotion/core';
 import BudgetPanel from '../components/BudgetPanel';
 
+import { getFilteredCategory } from '../utils/categories';
+import { uniq } from 'lodash';
+
 const containerStyle = css`
   display: flex;
+  flex-direction: column;
   width: 93%;
   height: 100vh;
   margin-top: 80px;
@@ -41,9 +45,11 @@ class BudgetsMain extends Component {
   componentWillReceiveProps({ categories }) {
     console.log(categories)
     if (categories.length) {
+      const deduped = uniq(categories.map(category => getFilteredCategory(category)));
       this.setState({
         loaded: true,
         categories: [...categories],
+        deduped: [...deduped],
       });
     }
   }
@@ -57,13 +63,19 @@ class BudgetsMain extends Component {
   }
 
   render() {
-    const { categories } = this.state;
+    const { loaded, deduped } = this.state;
 
     return (
-      <div className="budget-container" css={containerStyle}>
-        <CategoryIcons categories={categories} />
-        <BudgetPanel />
-      </div>
+      loaded && (
+        <div className="budget-container" css={containerStyle}>
+          <CategoryIcons categories={deduped} />
+          {
+            deduped.map(category => {
+              return <BudgetPanel key={category} category={category} />;
+            })
+          }
+        </div>
+      )
     );
   }
 }

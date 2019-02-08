@@ -24,6 +24,7 @@ Frontend:
 - [ ] Transactions
 - [ ] Budgets
 - [ ] Notifications
+- [ ] Mobile
 
 Inspired by Evan You's [build-your-own-mint](https://github.com/yyx990803/build-your-own-mint)
 
