@@ -68,7 +68,7 @@ class BudgetsMain extends Component {
     return (
       loaded && (
         <div className="budget-container" css={containerStyle}>
-          <CategoryIcons categories={deduped} />
+          {/* <CategoryIcons categories={deduped} /> */}
           {
             deduped.map(category => {
               return <BudgetPanel key={category} category={category} />;
