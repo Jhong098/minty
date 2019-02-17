@@ -41,7 +41,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
-
+import passport from 'passport';
 // Import required modules
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
@@ -49,6 +49,7 @@ import writeTransactionsToDB from './writeTransactionsToDB';
 import writeBalancesToDB from './writeBalancesToDB';
 import transaction from './routes/transaction.routes';
 import balance from './routes/balance.routes';
+import user from './routes/user.routes';
 // import dummyData from './dummyData';
 import serverConfig from './config';
 // import { fetchCategories } from './lib/fetch';
@@ -74,6 +75,11 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+// authentication
+app.use(passport.initialize());
+import auth from './passport';
+auth(passport);
+
 // Apply body Parser and server public assets and routes
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
@@ -81,6 +87,7 @@ app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api', transaction);
 app.use('/api', balance);
+app.use('/api/users', user);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
