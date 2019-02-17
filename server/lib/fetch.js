@@ -62,3 +62,12 @@ exports.fetchBalances = async function() {
     })));
   }, []);
 };
+
+exports.fetchCategories = async function() {
+  const rawCategories = await client.getCategories((err, response) => {
+    if (err) console.error(err);
+    return response.categories;
+  });
+  console.log(rawCategories);
+  return rawCategories;
+};

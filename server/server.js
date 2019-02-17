@@ -51,7 +51,7 @@ import transaction from './routes/transaction.routes';
 import balance from './routes/balance.routes';
 // import dummyData from './dummyData';
 import serverConfig from './config';
-
+// import { fetchCategories } from './lib/fetch';
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -68,6 +68,7 @@ if (process.env.NODE_ENV !== 'test') {
     //dummyData();
 
     // feed latest transactions and balances to DB
+    //fetchCategories();
     writeTransactionsToDB();
     writeBalancesToDB();
   });
