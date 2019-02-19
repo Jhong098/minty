@@ -1,6 +1,7 @@
 import {
   GET_TRANSACTIONS,
   GET_BALANCES,
+  GET_ERRORS,
 } from './AppActions';
 
 const initialState = {
@@ -20,6 +21,9 @@ const AppReducer = (state = initialState, action) => {
       return {
         ...state, balances: action.balances,
       };
+
+    case GET_ERRORS:
+      return action.payload;
 
     default:
       // console.log('default called')
