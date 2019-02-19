@@ -24,6 +24,7 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import AccountBox from '@material-ui/icons/AccountBox';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import Poll from '@material-ui/icons/Poll';
+import Button from '@material-ui/core/Button';
 
 const drawerWidth = 240;
 
@@ -132,7 +133,8 @@ class DrawerBar extends React.Component {
                 Minty
               </Typography>
             </Link>
-            {/* <Button color="inherit">Login</Button> */}
+            <Button color="inherit">Register</Button>
+            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
         <Drawer
