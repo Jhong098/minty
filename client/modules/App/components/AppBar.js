@@ -24,9 +24,6 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import AccountBox from '@material-ui/icons/AccountBox';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import Poll from '@material-ui/icons/Poll';
-import AppBarModal from './AppBarModal';
-import Register from './RegisterForm';
-import Login from './LoginForm';
 
 const drawerWidth = 240;
 
@@ -92,6 +89,14 @@ const styles = theme => ({
   },
 });
 
+const linkStyle = css`
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    color: grey;
+  }
+`;
 class DrawerBar extends React.Component {
   state = {
     open: false,
@@ -129,16 +134,16 @@ class DrawerBar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/" css={css`text-decoration: none; color: white; display: flex; align-items: center;`}>
+            <Link to="/" css={css`${linkStyle} display: flex; align-items: center;`}>
               <img css={css`width: 50px; padding: 10px;`} src="https://img.icons8.com/dusk/64/000000/us-dollar.png" alt="icon" />
               <Typography variant="h6" color="inherit" noWrap>
                 Minty
               </Typography>
             </Link>
             {/* <Button color="inherit">Register</Button> */}
-            <div css={css`display: flex; margin-left: auto; margin-right: 20px;`}>
-              <AppBarModal name="Register"><Register /></AppBarModal>
-              <AppBarModal name="Login"><Login /></AppBarModal>
+            <div css={css`display: flex; margin-left: auto; margin-right: 2%;`}>
+              <Link css={css`${linkStyle} margin-right: 20px;`} to="/register">Register</Link>
+              <Link css={linkStyle} to="/login">Login</Link>
             </div>
           </Toolbar>
         </AppBar>

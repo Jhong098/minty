@@ -45,9 +45,13 @@ export function fetchAppData() {
 }
 
 export const registerUser = (user, history) => dispatch => {
+  console.log('registering user')
+  console.log(history)
+
   axios.post('/api/users/register', user)
     .then(res => history.push('/login'))
     .catch(err => {
+      console.log(err.response.data)
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

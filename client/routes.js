@@ -19,6 +19,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Dash/pages/DashMainPage');
   require('./modules/Dash/pages/LandingPage');
   require('./modules/Budget/pages/BudgetsMain');
+  require('./components/RegisterForm');
+  require('./components/LoginForm');
   // require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 }
 
@@ -46,6 +48,22 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Budget/pages/BudgetsMain').default);
+        });
+      }}
+    />
+    <Route
+      path="/register"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/RegisterForm').default);
+        });
+      }}
+    />
+    <Route
+      path="/login"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/LoginForm').default);
         });
       }}
     />

@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+
+const containerStyle = css`
+  padding: 10%;
+`;
 
 class Login extends Component {
   constructor() {
@@ -27,7 +33,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+      <div className="container" css={containerStyle}>
         <h2 style={{marginBottom: '40px'}}>Login</h2>
         <form onSubmit={ this.handleSubmit }>
           <div className="form-group">
