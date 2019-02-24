@@ -70,7 +70,6 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
-    const { classes } = this.props;
     return (
       <div className="container" css={containerStyle}>
         <h2 style={{ marginBottom: '40px' }}>Registration</h2>
@@ -139,7 +138,7 @@ class Register extends Component {
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 

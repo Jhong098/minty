@@ -23,7 +23,9 @@ const AppReducer = (state = initialState, action) => {
       };
 
     case GET_ERRORS:
-      return action.payload;
+      return {
+        ...state, errors: action.payload,
+      };
 
     default:
       // console.log('default called')
