@@ -5,7 +5,7 @@ import graphImage from '../../../assets/graph.png';
 import searchImage from '../../../assets/search.png';
 import statsImage from '../../../assets/stats.png';
 import Fab from '@material-ui/core/Fab';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import anime from 'animejs';
 
 

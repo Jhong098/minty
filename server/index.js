@@ -39,7 +39,7 @@ import { configureStore } from '../client/store';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import { match, RouterContext } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import passport from 'passport';
 // Import required modules
