@@ -1,34 +1,33 @@
-/**
- * Client entry point
- */
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './App';
-import { configureStore } from './store';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-// Initialize store
-const store = configureStore(window.__INITIAL_STATE__);
-const mountApp = document.getElementById('root');
+import store from '../shared/store';
+import App from '../shared/routes';
 
-render(
-  <AppContainer>
-    <App store={store} />
-  </AppContainer>,
-  mountApp
-);
+const render = (Component) => {
+  ReactDOM.hydrate(
+    <AppContainer>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Component />
+        </BrowserRouter>
+      </Provider>
+    </AppContainer>,
+    document.getElementById('app'),
+  );
+};
 
-// For hot reloading of react components
+document.addEventListener('DOMContentLoaded', () => {
+  render(App);
+});
+
+// Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    // If you use Webpack 2 in ES modules mode, you can
-    // use <App /> here rather than require() a <NextApp />.
-    const NextApp = require('./App').default; // eslint-disable-line global-require
-    render(
-      <AppContainer>
-        <NextApp store={store} />
-      </AppContainer>,
-      mountApp
-    );
+  module.hot.accept('../shared/routes', () => {
+    const NextApp = require('../shared/routes').default; // eslint-disable-line
+    render(NextApp);
   });
 }

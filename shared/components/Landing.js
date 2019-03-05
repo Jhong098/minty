@@ -35,7 +35,7 @@ const textContainer = css`
   }
 `;
 
-class LandingPage extends React.Component {
+class Landing extends React.Component {
 
   constructor() {
     super();
@@ -106,5 +106,5 @@ class LandingPage extends React.Component {
   }
 }
 
-export default LandingPage;
+export default Landing;
 
