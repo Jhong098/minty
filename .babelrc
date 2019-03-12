@@ -3,7 +3,7 @@
   "plugins": ["emotion", "react-hot-loader/babel"],
   "env": {
     "production": {
-      "presets": ["emotion", "es2015", "react", "react-optimize", "es2015-native-modules"]
+      "presets": ["emotion", "es2015", "react", "react-optimize", "es2015-native-modules", "env"]
     },
     "development": {
       "plugins": [["emotion", { "sourceMap": true }]]

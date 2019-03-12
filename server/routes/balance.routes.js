@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as BalanceController from '../controllers/balance.controller';
+
 const router = new Router();
 
 // Get all Transactions

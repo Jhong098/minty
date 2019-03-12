@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const transactionSchema = new Schema({
   account: { type: 'String', required: true },
@@ -11,4 +12,4 @@ const transactionSchema = new Schema({
   // location: { type: 'Mixed', required: false },
 });
 
-export default mongoose.model('Transactions', transactionSchema);
+module.exports = mongoose.model('Transactions', transactionSchema);

@@ -1,4 +1,4 @@
-import callApi from '../../util/apiCaller';
+import callApi from '../../client/util/apiCaller';
 import axios from 'axios';
 
 export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';

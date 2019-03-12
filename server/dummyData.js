@@ -1,6 +1,6 @@
-import Transaction from './models/transaction';
+const Transaction = require('./models/transaction');
 
-export default function () {
+const dummyData = () => {
   Transaction.count().exec((err, count) => {
     if (count > 0) {
       return;
@@ -12,4 +12,6 @@ export default function () {
       if (err) console.error(error);
     });
   });
-}
+};
+
+module.exports = dummyData;

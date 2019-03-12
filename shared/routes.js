@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Landing from './components/Landing'
+import { Switch, Route } from 'react-router-dom'
+import Landing from './containers/Landing'
 import Dashboard from './containers/Dashboard'
 import Budgets from './containers/Budgets'
 

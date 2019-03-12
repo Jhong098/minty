@@ -4,7 +4,7 @@ import {
   GET_AMOUNT_BY_DAY,
   GET_CATEGORY_COUNTS,
   GET_BALANCES,
-} from './DashActions';
+} from '../actions/DashActions';
 
 const initialState = {
   transactions: [],

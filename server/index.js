@@ -1,11 +1,11 @@
-import Express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import path from 'path';
+const Express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = ('body-parser');
+const path = require('path');
 
 // local imports
-import serverConfig from './config';
-import dummyData from './dummyData';
+const serverConfig = require('./config');
+const dummyData = require('./dummyData');
 const webpackConfig = require('../webpack.config.dev')[0];
 const SSR = require('./SSR');
 
@@ -39,13 +39,13 @@ if (isDevMode) {
 }
 
 // Import required modules
-import routes from '../client/routes';
-import { fetchComponentData } from './util/fetchData';
-import writeTransactionsToDB from './writeTransactionsToDB';
-import writeBalancesToDB from './writeBalancesToDB';
-import transaction from './routes/transaction.routes';
-import balance from './routes/balance.routes';
-import user from './routes/user.routes';
+const routes = require('../client/routes');
+const { fetchComponentData } = require('./util/fetchData');
+const writeTransactionsToDB = require('./writeTransactionsToDB');
+const writeBalancesToDB = require('./writeBalancesToDB');
+const transaction = require('./routes/transaction.routes');
+const balance = require('./routes/balance.routes');
+const user = require('./routes/user.routes');
 // import dummyData from './dummyData';
 // import { fetchCategories } from './lib/fetch';
 
@@ -72,9 +72,9 @@ mongoose.connect(isTest ? serverConfig.testMongoURL: serverConfig.mongoURL, (err
 
 
 // authentication
-import passport from 'passport';
+const passport = require('passport');
 app.use(passport.initialize());
-import auth from './passport';
+const auth = require('./passport');
 auth(passport);
 
 // Apply body Parser and server public assets and routes
@@ -90,11 +90,11 @@ app.get('*', SSR.default);
 
 if (!isTest) {
   // start app
-  app.listen(serverConfig.port, error => {
+  app.listen(serverConfig.port, (error) => {
     if (!error) {
       console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
     }
   });
 }
 
-export default app;
+module.exports = app;

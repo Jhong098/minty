@@ -1,6 +1,6 @@
-const { fetchTransactions } = require('./lib/fetch');
-import Transaction from './models/transaction';
+import Transaction from '../models/transaction';
 
+const { fetchTransactions } = require('./fetch');
 
 export default async () => {
   const transactions = await fetchTransactions();

@@ -1,6 +1,6 @@
-const { fetchTransactions } = require('./lib/fetch');
-const { transformTransactionsToSheets } = require('./lib/transform');
-const { updateSheet } = require('./lib/update');
+const { fetchTransactions } = require('./fetch');
+const { transformTransactionsToSheets } = require('./transform');
+const { updateSheet } = require('./update');
 
 export default async () => {
   const transactions = await fetchTransactions();

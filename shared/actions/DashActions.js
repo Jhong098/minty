@@ -1,5 +1,5 @@
-import callApi from '../../util/apiCaller';
-import { processCatogoriesData } from '../../util/processData';
+import callApi from '../../client/util/apiCaller';
+import { processCatogoriesData } from '../../client/util/processData';
 
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const GET_AMOUNT_BY_DAY = 'GET_AMOUNT_BY_DAY';

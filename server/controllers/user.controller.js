@@ -1,10 +1,11 @@
-import validateRegisterInput from '../validation/register';
-import User from '../models/user';
 import gravatar from 'gravatar';
-import validateLoginInput from '../validation/login';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
+
+import validateRegisterInput from '../validation/register';
+import User from '../models/user';
+import validateLoginInput from '../validation/login';
 
 export const register = (req, res) => {
   const {
@@ -16,7 +17,7 @@ export const register = (req, res) => {
     return res.status(400).json(errors);
   }
   User.findOne({
-    email: req.body.email
+    email: req.body.email,
   }).then(user => {
     if (user) {
       return res.status(400).json({
