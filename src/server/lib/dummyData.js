@@ -1,4 +1,4 @@
-import Transaction from './models/transaction';
+import Transaction from '../models/transaction';
 
 export default function () {
   Transaction.count().exec((err, count) => {

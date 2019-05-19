@@ -4,6 +4,9 @@ import { Provider } from "react-redux";
 // import App from '../common/containers/App';
 import Router from "../common/routes";
 import configStore from "../common/store";
+import "./index.css";
+import "react-grid-layout/css/styles.css";
+// import "react-resizable/css/styles.css";
 
 const store = configStore(window.__PRELOADED_STATE__);
 
