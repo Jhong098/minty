@@ -6,6 +6,7 @@ export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV ==
   '/api';
 
 export default function callApi(endpoint, method = 'get', body) {
+  console.log(API_URL);
   return fetch(`${API_URL}/${endpoint}`, {
     headers: { 'content-type': 'application/json' },
     method,
@@ -16,7 +17,7 @@ export default function callApi(endpoint, method = 'get', body) {
     if (!response.ok) {
       return Promise.reject(json);
     }
-
+    console.log(json);
     return json;
   })
   .then(

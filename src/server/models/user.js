@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -17,9 +18,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-  },
-  avatar: {
-    type: String,
   },
   date: {
     type: Date,

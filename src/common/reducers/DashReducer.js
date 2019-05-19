@@ -1,10 +1,12 @@
 import {
-  // ADD_TRANSACTION,
   GET_TRANSACTIONS,
-  GET_AMOUNT_BY_DAY,
-  GET_CATEGORY_COUNTS,
   GET_BALANCES,
-} from '../actions/DashActions';
+} from "../actions/AppActions";
+
+import {
+  GET_AMOUNT_BY_DAY,
+  GET_CATEGORY_COUNTS
+} from "../actions/DashActions";
 
 const initialState = {
   transactions: [],

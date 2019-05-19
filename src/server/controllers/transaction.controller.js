@@ -1,7 +1,7 @@
-import Transaction from '../models/transaction';
 import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
+import Transaction from '../models/transaction';
 
 export function getDailyAggregatedTransactions(req, res) {
   Transaction.aggregate([

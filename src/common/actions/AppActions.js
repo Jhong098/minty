@@ -12,6 +12,7 @@ export function getTransactions(transactions) {
 }
 
 export function getBalances(balances) {
+  console.log(balances);
   return {
     type: GET_BALANCES,
     balances,

@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../reducers/reducers';
 
-const configureStore = (initialState = {}) {
+const configureStore = (initialState = {}) => {
   // Middleware and store enhancers
   const enhancers = [
     applyMiddleware(thunk),
@@ -19,8 +19,8 @@ const configureStore = (initialState = {}) {
   // For hot reloading reducers
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('./reducers').default; // eslint-disable-line global-require
+    module.hot.accept('../reducers/reducers', () => {
+      const nextReducer = require('../reducers/reducers').default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }
