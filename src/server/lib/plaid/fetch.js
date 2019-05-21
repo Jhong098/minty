@@ -20,14 +20,13 @@ const transactionFetchOptions = [
   },
 ];
 
-const plaidAccountTokens = Object.keys(process.env)
-  .filter(key => key.startsWith(`PLAID_TOKEN`))
-  .map(key => ({
-    account: key.replace(/^PLAID_TOKEN_/, ''),
-    token: process.env[key],
-  }));
+const plaidAccountTokens = process.env.RAZZLE_PLAID_TOKEN_tangerine ?
+  [{
+    account: "tangerine",
+    token: process.env.RAZZLE_PLAID_TOKEN_tangerine,
+  }] : [{}];
 
-exports.fetchTransactions = async function() {
+export const fetchTransactions = async () => {
   const rawTransactions = await Promise.all(plaidAccountTokens.map(({ account, token }) => {
     return client.getTransactions(token, ...transactionFetchOptions)
       .then(({ transactions }) => ({
@@ -50,7 +49,7 @@ exports.fetchTransactions = async function() {
   }, []);
 };
 
-exports.fetchBalances = async function() {
+export const fetchBalances = async () => {
   const rawBalances = await Promise.all(plaidAccountTokens.map(({ account, token }) => {
     return client.getBalance(token);
   }));
@@ -63,7 +62,7 @@ exports.fetchBalances = async function() {
   }, []);
 };
 
-exports.fetchCategories = async function() {
+export const fetchCategories = async () => {
   const rawCategories = await client.getCategories((err, response) => {
     if (err) console.error(err);
     return response.categories;

@@ -2,6 +2,7 @@ import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
 import Transaction from '../models/transaction';
+import writeTransactionsToDB from '../lib/writeTransactionsToDB';
 
 export function getDailyAggregatedTransactions(req, res) {
   Transaction.aggregate([
@@ -137,5 +138,18 @@ export function deleteTransaction(req, res) {
     transaction.remove(() => {
       res.status(200).end();
     });
+  });
+}
+
+export const updateTransactions = (req, res) => {
+  console.log("get updatetransactions");
+  writeTransactionsToDB();
+  filterTransactions()
+  .sort('-dateAdded')
+  .exec((err, transactions) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ transactions });
   });
 }

@@ -9,6 +9,8 @@ import transaction from "./routes/transaction.routes";
 import balance from "./routes/balance.routes";
 import user from "./routes/user.routes";
 
+import { SaveMockTransactionToDB } from "./lib/dummyDataGenerator";
+
 const server = express();
 
 // Set native promises as mongoose promise
@@ -23,7 +25,7 @@ if (process.env.NODE_ENV !== 'test') {
     }
 
     // feed some dummy data in DB.
-    //dummyData();
+    SaveMockTransactionToDB(10);
 
     // feed latest transactions and balances to DB
     //fetchCategories();

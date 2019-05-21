@@ -1,5 +1,5 @@
-const { fetchBalances } = require('./lib/fetch');
-import Balance from './models/transaction';
+import { fetchBalances } from "./plaid/fetch";
+import Balance from '../models/balance';
 
 
 export default async () => {

@@ -51,7 +51,6 @@ export function fetchCategoryCounts() {
 
 
 export function fetchDashData() {
-  console.log('called dash fetch')
   return dispatch => Promise.all([
     dispatch(fetchAmountsByDay()),
     dispatch(fetchCategoryCounts()),

@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
-const transactionSchema = new Schema({
+export const transactionSchema = new Schema({
   account: { type: 'String', required: true },
   name: { type: 'String', required: true },
   date: { type: 'String', required: true },

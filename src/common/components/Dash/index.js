@@ -10,7 +10,7 @@ import PieGraph from './PieGraph';
 import WeeklyOverview from './WeeklyOverview';
 
 // Import Actions
-import { fetchAppData } from "../../actions/AppActions";
+import { fetchAppData, dispatchUpdateTransactions } from "../../actions/AppActions";
 import { fetchDashData } from "../../actions/DashActions";
 
 // Import Selectors
@@ -85,6 +85,7 @@ class DashMainPage extends Component {
         {
           loaded && (
             <div className="dash-container" css={containerStyle}>
+              <button onClick={() => this.props.dispatch(dispatchUpdateTransactions())}>UPDATE</button>
               <Balances balances={balances} />
               <LineGraph amounts={amounts} />
               <TransactionTable transactions={transactions} />

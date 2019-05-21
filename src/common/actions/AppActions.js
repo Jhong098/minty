@@ -1,7 +1,9 @@
 import callApi from '../util/apiCaller';
+import writeTransactionsToDB from "../../server/lib/writeTransactionsToDB";
 
 export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const GET_BALANCES = 'GET_BALANCES';
+export const UPDATE_TRANSACTIONS = 'UPDATE_TRANSACTIONS';
 
 
 export function getTransactions(transactions) {
@@ -12,10 +14,16 @@ export function getTransactions(transactions) {
 }
 
 export function getBalances(balances) {
-  console.log(balances);
   return {
     type: GET_BALANCES,
     balances,
+  };
+}
+
+export function updateTransactions(transactions) {
+  return {
+    type: UPDATE_TRANSACTIONS,
+    transactions
   };
 }
 
@@ -36,9 +44,16 @@ export function fetchBalances() {
 }
 
 export function fetchAppData() {
-  console.log('called app fetch')
   return dispatch => Promise.all([
     dispatch(fetchBalances()),
     dispatch(fetchTransactions()),
   ]);
+}
+
+export const dispatchUpdateTransactions = () => {
+  return dispatch => {
+    return callApi('transactions/update').then(res => {
+      dispatch(getTransactions(res.transactions));
+    })
+  }
 }

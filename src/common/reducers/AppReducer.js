@@ -1,6 +1,7 @@
 import {
   GET_TRANSACTIONS,
   GET_BALANCES,
+  UPDATE_TRANSACTIONS
 } from '../actions/AppActions';
 
 const initialState = {
@@ -11,6 +12,12 @@ const initialState = {
 const AppReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_TRANSACTIONS :
+      // console.log('get trans called')
+      return {
+        ...state, transactions: action.transactions,
+      };
+
+    case UPDATE_TRANSACTIONS :
       // console.log('get trans called')
       return {
         ...state, transactions: action.transactions,

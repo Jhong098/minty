@@ -2,6 +2,9 @@ import { Router } from 'express';
 import * as TransactionController from '../controllers/transaction.controller';
 const router = new Router();
 
+// Update Transactions
+router.route('/transactions/update').get(TransactionController.updateTransactions);
+
 // Get all Transactions
 router.route('/transactions').get(TransactionController.getTransactions);
 
