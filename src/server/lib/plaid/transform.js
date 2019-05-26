@@ -44,7 +44,6 @@ exports.transformTransactionsToSheets = (transactions) => {
   }
 
   console.log('DEBUG: updates to be made:');
-  console.log(updates);
 
   return updates;
 };

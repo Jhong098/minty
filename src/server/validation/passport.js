@@ -1,13 +1,16 @@
+import User from "../models/user";
+
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+// const mongoose = require('mongoose');
+
+// const User = mongoose.model('User');
 const opts = {};
 
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = 'secret';
 
-module.exports = passport => {
+export default passport => {
   passport.use(new JWTStrategy(opts, (jwt_payload, done) => {
     User.findById(jwt_payload.id)
       .then(user => {

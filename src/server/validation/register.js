@@ -1,12 +1,17 @@
-const Validator = require('validator');
-const isEmpty = require('./isEmpty');
+import Validator from 'validator';
+import isEmpty from './isEmpty';
 
-module.exports = function validateRegisterInput(data) {
-  let errors = {};
-  data.name = !isEmpty(data.name) ? data.name : '';
-  data.email = !isEmpty(data.email) ? data.email : '';
-  data.password = !isEmpty(data.password) ? data.password : '';
-  data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
+export default (data) => {
+  console.log(data)
+  const errors = {};
+
+  if (data) {
+    data.name = !isEmpty(data.name) ? data.name : '';
+    data.email = !isEmpty(data.email) ? data.email : '';
+    data.password = !isEmpty(data.password) ? data.password : '';
+    data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
+  }
+
 
   if (!Validator.isLength(data.name, {
     min: 2,

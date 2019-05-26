@@ -58,15 +58,17 @@ class Register extends Component {
   }
 
   handleSubmit = (e) => {
-    const { name, email, password, password_confirm } = this.state;
     e.preventDefault();
+    const { name, email, password, password_confirm } = this.state;
+    const { registerUser, history } = this.props;
     const user = {
       name,
       email,
       password,
       password_confirm
     };
-    this.props.registerUser(user, this.props.router);
+    console.log("submitting")
+    registerUser(user, history);
   }
 
   render() {

@@ -1,6 +1,9 @@
 import express from 'express';
 import mongoose from "mongoose";
 import { matchRoutes } from "react-router-config";
+import bodyParser from 'body-parser';
+import passport from 'passport';
+import auth from "./validation/passport";
 import serverConfig from "./config";
 import render from "./render";
 import configureStore from "../common/store";
@@ -26,7 +29,7 @@ if (process.env.NODE_ENV !== 'test') {
 
     // feed some dummy data in DB.
     // if (process.env.NODE_ENV === 'production') {
-    SaveMockTransactionToDB(10);
+    // SaveMockTransactionToDB(10);
     // }
 
     // feed latest transactions and balances to DB
@@ -36,6 +39,10 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+server.use(passport.initialize());
+auth(passport);
+server.use(bodyParser.json()); // <--- Here
+server.use(bodyParser.urlencoded({extended: true}));
 server.use('/api', transaction);
 server.use('/api', balance);
 server.use('/api/users', user);

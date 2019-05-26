@@ -55,13 +55,13 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     const { email, password } = this.state;
-    const { loginUser, router } = this.props;
+    const { loginUser, history } = this.props;
     e.preventDefault();
     const user = {
       email,
       password
     };
-    loginUser(user, router);
+    loginUser(user, history);
   }
 
   render() {

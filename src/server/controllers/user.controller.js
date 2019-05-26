@@ -10,7 +10,6 @@ export const register = (req, res) => {
     errors,
     isValid,
   } = validateRegisterInput(req.body);
-  console.log(isValid)
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -34,7 +33,6 @@ export const register = (req, res) => {
     bcrypt.genSalt(10, (err, salt) => {
       if (err) console.error('There was an error', err);
       else {
-        console.log('hashing')
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) console.error('There was an error', err);
           else {
@@ -42,7 +40,6 @@ export const register = (req, res) => {
             newUser
               .save()
               .then(user => {
-                console.log(user)
                 return res.json(user);
               });
           }

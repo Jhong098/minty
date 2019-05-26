@@ -100,7 +100,7 @@ export const getMockCategoryData = (req, res) => {
     $group: {
       _id: {
         category: {
-          $arrayElemAt: ['$category', 1]
+          $arrayElemAt: ['$category', 0]
         }
       },
       count: {

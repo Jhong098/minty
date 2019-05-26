@@ -65,7 +65,6 @@ class DashMainPage extends Component {
 
   render() {
     const { transactions, amounts, counts, balances } = this.props;
-    console.log(amounts)
     return (
       <div className="dash-container" css={containerStyle}>
         <button onClick={() => this.props.dispatch(dispatchUpdateTransactions())}>UPDATE</button>

@@ -67,6 +67,5 @@ export const fetchCategories = async () => {
     if (err) console.error(err);
     return response.categories;
   });
-  console.log(rawCategories);
   return rawCategories;
 };

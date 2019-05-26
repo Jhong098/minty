@@ -1,4 +1,5 @@
 const isEmpty = (value) => {
+  console.log(value)
   return (
       value === undefined ||
       value === null ||
