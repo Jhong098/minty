@@ -1,8 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import mongoose from 'mongoose';
-import { transactionSchema } from '../models/transaction';
-
-const MockTransactionObj = mongoose.model('mockTransactions', transactionSchema);
+import dayjs from "dayjs";
+import { MockTransaction } from '../models/transaction';
 
 function randomDate(range) {
   const today = new Date(Date.now());
@@ -21,10 +19,12 @@ export const getMockTransactionsData = (count) => {
   const CATEGORIES = ["Shopping", "Food and Beverages", "Restaurants", "Shops"];
 
   for (let i = 0; i < count; ++i) {
-    mockTransactions.push(new MockTransactionObj({
+    const _date = randomDate(10);
+    mockTransactions.push(new MockTransaction({
       account: ACCOUNTS[i % ACCOUNTS.length],
       name: TRANSACTION_NAMES[i % TRANSACTION_NAMES.length],
-      date: randomDate(10),
+      date: _date,
+      dateISO: dayjs(_date).toISOString(),
       amount: getRandomDouble(100),
       category: CATEGORIES[i % CATEGORIES.length]
     }));
@@ -34,7 +34,7 @@ export const getMockTransactionsData = (count) => {
 
 export const SaveMockTransactionToDB = (count) => {
   const mocks = getMockTransactionsData(count);
-  MockTransactionObj.create(mocks, err => {
+  MockTransaction.create(mocks, err => {
     if (err) console.error(err);
   })
 };

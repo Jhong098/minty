@@ -28,7 +28,8 @@ class TransactionTable extends React.Component {
   }
 
   getData = () => {
-    return this.props.transactions.map(({ account, name, date, amount, category }) => {
+    const { transactions } = this.props;
+    return transactions.map(({ account, name, date, amount, category }) => {
       return this.createData(account, name, date, amount, category);
     });
   };

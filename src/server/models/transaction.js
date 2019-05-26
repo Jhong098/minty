@@ -12,4 +12,5 @@ export const transactionSchema = new Schema({
   // location: { type: 'Mixed', required: false },
 });
 
-export default mongoose.model('Transactions', transactionSchema);
+export const Transaction = mongoose.model('Transactions', transactionSchema);
+export const MockTransaction = mongoose.model('mockTransactions', transactionSchema);

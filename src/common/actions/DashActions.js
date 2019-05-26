@@ -33,22 +33,22 @@ export function fetchTransaction(cuid) {
 }
 
 export function fetchAmountsByDay() {
-  return (dispatch) => {
-    return callApi('transactionAmountsByDay').then(res => {
+  return (dispatch, getState) => {
+    const { isAuthenticated } = getState().auth;
+    return callApi(isAuthenticated ? 'transactionAmountsByDay' : 'mockTransactionAmountsByDay').then(res => {
       dispatch(getAmountsByDay(res.result));
     });
   };
 }
 
 export function fetchCategoryCounts() {
-  return (dispatch) => {
-    return callApi('transactionsCountByCategory').then(res => {
+  return (dispatch, getState) => {
+    const { isAuthenticated } = getState().auth;
+    return callApi(isAuthenticated ? 'transactionsCountByCategory' : 'mockTransactionsCountByCategory').then(res => {
       dispatch(getCategoryCounts(processCatogoriesData(res.result)));
     });
   };
 }
-
-
 
 export function fetchDashData() {
   return dispatch => Promise.all([

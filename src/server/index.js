@@ -25,7 +25,9 @@ if (process.env.NODE_ENV !== 'test') {
     }
 
     // feed some dummy data in DB.
+    // if (process.env.NODE_ENV === 'production') {
     SaveMockTransactionToDB(10);
+    // }
 
     // feed latest transactions and balances to DB
     //fetchCategories();

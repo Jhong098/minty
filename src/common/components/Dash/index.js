@@ -38,15 +38,6 @@ const containerStyle = css`
 
 class DashMainPage extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false,
-      amounts: [],
-      counts: [],
-    };
-  }
-
   componentDidMount = () => {
     const { dispatch } = this.props;
     Promise.all([
@@ -57,50 +48,39 @@ class DashMainPage extends Component {
     });
   }
 
-  componentWillReceiveProps({ amounts, transactions, counts, balances }) {
-    if (amounts.length && transactions.length && counts.length && balances.length) {
-      this.setState({
-        loaded: true,
-        transactions: [...transactions],
-        amounts: [...amounts],
-        counts: [...counts],
-        balances: [...balances],
-      });
-    }
-  }
-
-  shouldComponentUpdate(nextState) {
-    const { loaded } = this.state;
-    if (nextState.loaded === loaded) {
-      // console.log('do not render, already loaded')
-      return false;
-    }
-    return true;
-  }
+  // componentWillReceiveProps({ amounts, transactions, counts, balances }) {
+  //   // if (amounts && transactions && counts && amounts.length && transactions.length && counts.length && balances.length) {
+  //   //   this.setState({
+  //   //     loaded: true,
+  //   //     transactions: [...transactions],
+  //   //     amounts: [...amounts],
+  //   //     counts: [...counts],
+  //   //     balances: [...balances],
+  //   //   });
+  //   // }
+  //   this.setState({
+  //     amounts, transactions, counts, balances
+  //   });
+  // }
 
   render() {
-    const { loaded, transactions, amounts, counts, balances } = this.state;
+    const { transactions, amounts, counts, balances } = this.props;
+    console.log(amounts)
     return (
-      <div>
-        {
-          loaded && (
-            <div className="dash-container" css={containerStyle}>
-              <button onClick={() => this.props.dispatch(dispatchUpdateTransactions())}>UPDATE</button>
-              <Balances balances={balances} />
-              <LineGraph amounts={amounts} />
-              <TransactionTable transactions={transactions} />
-              <PieGraph data={counts} />
-              <WeeklyOverview amounts={amounts} />
-            </div>
-          )
-        }
+      <div className="dash-container" css={containerStyle}>
+        <button onClick={() => this.props.dispatch(dispatchUpdateTransactions())}>UPDATE</button>
+        <Balances balances={balances} />
+        <LineGraph amounts={amounts} />
+        {transactions.length && <TransactionTable transactions={transactions} />}
+        <PieGraph data={counts} />
+        <WeeklyOverview amounts={amounts} />
       </div>
     );
   }
 }
 
 // Retrieve data from store as props
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     amounts: getAmountsByDay(state),
     counts: getCategoryCounts(state),

@@ -21,4 +21,10 @@ router.route('/transactionAmountsByDay').get(TransactionController.getDailyAggre
 
 router.route('/transactionsCountByCategory').get(TransactionController.getCategoryData);
 
+// mock Transactions
+router.route('/mockTransactions').get(TransactionController.getMockTransactions);
+router.route('/mockTransactionAmountsByDay').get(TransactionController.getDailyAggregatedMockTransactions);
+router.route('/mockTransactionsCountByCategory').get(TransactionController.getMockCategoryData);
+
+
 export default router;

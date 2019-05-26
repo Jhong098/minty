@@ -27,9 +27,10 @@ export function updateTransactions(transactions) {
   };
 }
 
-export function fetchTransactions() {
-  return (dispatch) => {
-    return callApi('transactions').then(res => {
+export const fetchTransactions = () => {
+  return (dispatch, getState) => {
+    const { isAuthenticated } = getState().auth;
+    return callApi(isAuthenticated ? 'transactions' : 'mockTransactions').then(res => {
       dispatch(getTransactions(res.transactions));
     });
   };

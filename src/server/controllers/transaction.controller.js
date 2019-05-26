@@ -1,11 +1,48 @@
 import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
-import Transaction from '../models/transaction';
+import mongoose from 'mongoose';
+import { Transaction, MockTransaction } from '../models/transaction';
 import writeTransactionsToDB from '../lib/writeTransactionsToDB';
 
-export function getDailyAggregatedTransactions(req, res) {
-  Transaction.aggregate([
+export const getDailyAggregatedTransactions = (req, res) => {
+  mongoose.model('Transactions').aggregate([
+    {
+      $match: {
+        $and: [{name:{$regex: "^((?!Interest).)*$"}},{name:{$regex: "^((?!INTERAC).)*$"}},{name:{$regex: "^((?!Credit).)*$"}},{name:{$regex: "^((?!Payment).)*$", $options: 'i'}}]
+      }
+    },
+    { $group: {
+      _id: {
+        day: {
+          $dayOfYear: {
+            $dateFromString: {
+              dateString: "$dateISO"
+            }
+          }
+        },
+        year: {
+          $year: {
+            $dateFromString: {
+              dateString: "$dateISO"
+            }
+          }
+        }
+      },
+      dailyTotal: {
+        $sum: "$amount"
+      }, count: {
+        $sum: 1
+      }
+    }
+  }], (err, result) => {
+    if (err) res.status(500).send(err);
+    res.json({ result });
+  });
+}
+
+export const getDailyAggregatedMockTransactions = (req, res) => {
+  mongoose.model('mockTransactions').aggregate([
     {
       $match: {
         $and: [{name:{$regex: "^((?!Interest).)*$"}},{name:{$regex: "^((?!INTERAC).)*$"}},{name:{$regex: "^((?!Credit).)*$"}},{name:{$regex: "^((?!Payment).)*$", $options: 'i'}}]
@@ -41,7 +78,25 @@ export function getDailyAggregatedTransactions(req, res) {
 }
 
 export function getCategoryData(req, res) {
-  Transaction.aggregate([{
+  mongoose.model('Transactions').aggregate([{
+    $group: {
+      _id: {
+        category: {
+          $arrayElemAt: ['$category', 1]
+        }
+      },
+      count: {
+        $sum: 1
+      }
+    }
+  }], (err, result) => {
+    if (err) res.status(500).send(err);
+    res.json({ result });
+  });
+}
+
+export const getMockCategoryData = (req, res) => {
+  mongoose.model('mockTransactions').aggregate([{
     $group: {
       _id: {
         category: {
@@ -65,12 +120,23 @@ export function getCategoryData(req, res) {
  * @returns void
  */
 
-export function filterTransactions(req, res) {
-  return Transaction.find({$and: [{name:{$regex: "^((?!Interest).)*$"}},{name:{$regex: "^((?!INTERAC).)*$"}},{name:{$regex: "^((?!Credit).)*$"}},{name:{$regex: "^((?!Payment).)*$", $options: 'i'}}]});
+export const filterTransactions = (object) => {
+  return object.find({$and: [{name:{$regex: "^((?!Interest).)*$"}},{name:{$regex: "^((?!INTERAC).)*$"}},{name:{$regex: "^((?!Credit).)*$"}},{name:{$regex: "^((?!Payment).)*$", $options: 'i'}}]});
+}
+
+export const getMockTransactions = (req, res) => {
+  filterTransactions(mongoose.model('mockTransactions'))
+    .sort('-dateAdded')
+    .exec((err, transactions) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json({ transactions })
+    });
 }
 
 export function getTransactions(req, res) {
-  filterTransactions()
+  filterTransactions(mongoose.model('Transactions'))
     .sort('-dateAdded')
     .exec((err, transactions) => {
       if (err) {
@@ -142,7 +208,6 @@ export function deleteTransaction(req, res) {
 }
 
 export const updateTransactions = (req, res) => {
-  console.log("get updatetransactions");
   writeTransactionsToDB();
   filterTransactions()
   .sort('-dateAdded')

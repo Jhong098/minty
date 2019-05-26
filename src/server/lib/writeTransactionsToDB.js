@@ -1,4 +1,4 @@
-import Transaction from '../models/transaction';
+import { Transaction } from '../models/transaction';
 import { fetchTransactions } from "./plaid/fetch";
 
 
