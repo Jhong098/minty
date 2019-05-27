@@ -1,5 +1,6 @@
 import callApi from '../util/apiCaller';
 import writeTransactionsToDB from "../../server/lib/writeTransactionsToDB";
+import { fetchDashData } from "./DashActions";
 
 export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const GET_BALANCES = 'GET_BALANCES';
@@ -29,8 +30,8 @@ export function updateTransactions(transactions) {
 
 export const fetchTransactions = () => {
   return (dispatch, getState) => {
-    const { isAuthenticated } = getState().auth;
-    return callApi(isAuthenticated ? 'transactions' : 'mockTransactions').then(res => {
+    const { isAuthenticated, user } = getState().auth;
+    return callApi(isAuthenticated ? 'transactions' : 'mockTransactions', user).then(res => {
       dispatch(getTransactions(res.transactions));
     });
   };
@@ -52,9 +53,10 @@ export function fetchAppData() {
 }
 
 export const dispatchUpdateTransactions = () => {
-  return dispatch => {
-    return callApi('transactions/update').then(res => {
-      dispatch(getTransactions(res.transactions));
+  return (dispatch, getState) => {
+    const { isAuthenticated, user } = getState().auth;
+    return callApi('transactions/update', isAuthenticated ? user : {}).then(() => {
+      return dispatch(fetchTransactions());
     })
   }
 }

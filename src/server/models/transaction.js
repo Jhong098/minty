@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const transactionSchema = new Schema({
+  accountId: { type: 'String' },
   account: { type: 'String', required: true },
   name: { type: 'String', required: true },
   date: { type: 'String', required: true },

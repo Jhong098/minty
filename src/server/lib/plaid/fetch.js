@@ -26,7 +26,7 @@ const plaidAccountTokens = process.env.RAZZLE_PLAID_TOKEN_tangerine ?
     token: process.env.RAZZLE_PLAID_TOKEN_tangerine,
   }] : [{}];
 
-export const fetchTransactions = async () => {
+export const fetchTransactions = async (id) => {
   const rawTransactions = await Promise.all(plaidAccountTokens.map(({ account, token }) => {
     return client.getTransactions(token, ...transactionFetchOptions)
       .then(({ transactions }) => ({
@@ -38,6 +38,7 @@ export const fetchTransactions = async () => {
   // concat all transactions
   return rawTransactions.reduce((all, { account, transactions }) => {
     return all.concat(transactions.map(({ name, date, amount, category, location }) => ({
+      accountId: id,
       account,
       name,
       date,

@@ -2,7 +2,6 @@ import Validator from 'validator';
 import isEmpty from './isEmpty';
 
 export default (data) => {
-  console.log(data)
   const errors = {};
 
   if (data) {

@@ -1,10 +1,9 @@
-import { Transaction } from '../models/transaction';
+import mongoose from 'mongoose';
 import { fetchTransactions } from "./plaid/fetch";
 
-
-export default async () => {
-  const transactions = await fetchTransactions();
-  Transaction.create(transactions, (error) => {
-    if (error) console.error(error);
+export default async (query) => {
+  const transactions = await fetchTransactions(query && query.id ? query.id : "");
+  mongoose.model('Transactions').create(transactions, (error) => {
+    if (error) return error;
   });
 };

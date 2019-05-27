@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // Import Components
 import { jsx, css } from '@emotion/core';
+import { Button } from '@material-ui/core';
 import TransactionTable from './TransactionTable';
 import LineGraph from './LineGraph';
 import Balances from './Balances';
@@ -23,7 +24,7 @@ const containerStyle = css`
   display: flex;
   width: 93%;
   height: 100vh;
-  margin-top: 80px;
+  margin-top: 10px;
   margin-left: 80px;
   flex-wrap: wrap;
 
@@ -34,6 +35,14 @@ const containerStyle = css`
     height: 60%;
     margin: 16px;
   }
+`;
+
+const toolBarStyle = css`
+  width: 80%;
+  margin-top: 80px;
+  margin-left: 100px;
+  margin-right: auto;
+  height: 50px;
 `;
 
 class DashMainPage extends Component {
@@ -66,13 +75,17 @@ class DashMainPage extends Component {
   render() {
     const { transactions, amounts, counts, balances } = this.props;
     return (
-      <div className="dash-container" css={containerStyle}>
-        <button onClick={() => this.props.dispatch(dispatchUpdateTransactions())}>UPDATE</button>
-        <Balances balances={balances} />
-        <LineGraph amounts={amounts} />
-        {transactions.length && <TransactionTable transactions={transactions} />}
-        <PieGraph data={counts} />
-        <WeeklyOverview amounts={amounts} />
+      <div>
+        <div css={toolBarStyle}>
+          <Button variant="outlined" color="primary" onClick={() => this.props.dispatch(dispatchUpdateTransactions())}>UPDATE</Button>
+        </div>
+        <div className="dash-container" css={containerStyle}>
+          {balances && <Balances balances={balances} />}
+          {amounts && <LineGraph amounts={amounts} />}
+          {transactions && <TransactionTable transactions={transactions} />}
+          {counts && <PieGraph data={counts} />}
+          {amounts && <WeeklyOverview amounts={amounts} />}
+        </div>
       </div>
     );
   }

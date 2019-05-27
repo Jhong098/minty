@@ -7,8 +7,7 @@ const initialState = {
 const BudgetReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CATEGORIES :
-      console.log('in reducer')
-      console.log(action.categories)
+      // console.log(action.categories)
       return {
         ...state, categories: action.categories,
       };
