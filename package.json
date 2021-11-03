@@ -50,7 +50,7 @@
     "redux-thunk": "^2.3.0",
     "sanitize-html": "^1.20.1",
     "serialize-javascript": "^3.1.0",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
